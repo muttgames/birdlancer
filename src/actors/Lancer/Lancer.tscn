@@ -1,123 +1,236 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=39 format=2]
 
 [ext_resource path="res://src/actors/Lancer/Lancer.gd" type="Script" id=1]
-[ext_resource path="res://src/actors/Lancer/lancer_animated_temp.png" type="Texture" id=2]
+[ext_resource path="res://src/actors/Lancer/lancer_idle.png" type="Texture" id=2]
 [ext_resource path="res://src/objects/Spear/Spear.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/utility/state_machine/StateMachine.gd" type="Script" id=4]
+[ext_resource path="res://src/actors/Lancer/lancer_run.png" type="Texture" id=6]
+[ext_resource path="res://src/actors/Lancer/lancer_walk.png" type="Texture" id=7]
+[ext_resource path="res://src/actors/Lancer/states/LancerGroundedState.gd" type="Script" id=8]
+[ext_resource path="res://src/utility/PlayerController.gd" type="Script" id=10]
+[ext_resource path="res://src/actors/Lancer/states/LancerCoasting.gd" type="Script" id=11]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8.94656, 8.21309 )
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 6 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 6 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 6 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 6 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 6 )
+region = Rect2( 64, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 6 )
+region = Rect2( 96, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 7 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 7 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 7 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 7 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 7 )
+region = Rect2( 64, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 7 )
+region = Rect2( 96, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 2 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 2 )
+region = Rect2( 96, 32, 32, 32 )
+
+[sub_resource type="SpriteFrames" id=25]
+animations = [ {
+"frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
+"loop": true,
+"name": "Run",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 15.0
+}, {
+"frames": [ SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 15.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=44]
+radius = 5.0
+height = 8.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "Idle"
 length = 0.8
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("LancerSprite:frame")
+tracks/0/path = NodePath("Sprite:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+"values": [ "Idle" ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=42]
 resource_name = "Run"
 length = 0.8
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("LancerSprite:frame")
+tracks/0/path = NodePath("Sprite:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 8, 9, 10, 11, 12, 13, 14, 15 ]
+"values": [ "Run" ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=43]
 resource_name = "Walk"
 length = 0.8
 loop = true
 tracks/0/type = "value"
-tracks/0/path = NodePath("LancerSprite:frame")
+tracks/0/path = NodePath("Sprite:animation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7 ),
-"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 16, 17, 18, 19, 20, 21, 22, 23 ]
+"values": [ "Walk" ]
 }
-
-[sub_resource type="AnimationNodeAnimation" id=8]
-animation = "Idle"
-
-[sub_resource type="AnimationNodeAnimation" id=9]
-animation = "Run"
-
-[sub_resource type="AnimationNodeAnimation" id=10]
-animation = "Walk"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=11]
-advance_condition = "is_running"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=12]
-advance_condition = "is_walking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=13]
-advance_condition = "is_running"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=14]
-advance_condition = "is_idling"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=15]
-advance_condition = "is_walking"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=16]
-advance_condition = "is_idling"
-
-[sub_resource type="AnimationNodeStateMachine" id=3]
-states/Idle/node = SubResource( 8 )
-states/Idle/position = Vector2( 297, 249 )
-states/Run/node = SubResource( 9 )
-states/Run/position = Vector2( 436, 144 )
-states/Walk/node = SubResource( 10 )
-states/Walk/position = Vector2( 573, 243 )
-transitions = [ "Idle", "Run", SubResource( 11 ), "Run", "Walk", SubResource( 12 ), "Walk", "Run", SubResource( 13 ), "Walk", "Idle", SubResource( 14 ), "Idle", "Walk", SubResource( 15 ), "Run", "Idle", SubResource( 16 ) ]
-start_node = "Idle"
-
-[sub_resource type="AnimationNodeBlendTree" id=4]
-graph_offset = Vector2( 0, 50.75 )
-nodes/MainLoop/node = SubResource( 3 )
-nodes/MainLoop/position = Vector2( 420, 100 )
-nodes/output/position = Vector2( 800, 140 )
-node_connections = [ "output", 0, "MainLoop" ]
-
-[sub_resource type="AnimationNodeStateMachinePlayback" id=5]
 
 [node name="Lancer" type="KinematicBody2D"]
 position = Vector2( 3.35876, -5.56847 )
 script = ExtResource( 1 )
+friction = 200.0
+max_jump_speed = 200.0
+gravity = 500.0
+flap_speed = 200.0
+jump_speed = 2000.0
+aerial_accel_speed = 250.0
+grounded_accel_speed = 700.0
 
-[node name="LancerSprite" type="Sprite" parent="."]
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 4 )
+animation_player = NodePath("../AnimationPlayer")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+next_state = "Walk"
+max_speed = 0.01
+
+[node name="Walk" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+next_state = "Run"
+prev_state = "Idle"
+min_speed = 0.01
+max_speed = 0.35
+max_anim_speed = 3.0
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource( 8 )
+prev_state = "Walk"
+min_speed = 0.35
+max_speed = 1.0
+min_anim_speed = 1.5
+max_anim_speed = 3.0
+
+[node name="Jumping" type="Node" parent="StateMachine"]
+script = ExtResource( 11 )
+
+[node name="FlapTimer" type="Timer" parent="StateMachine/Jumping"]
+wait_time = 0.45
+one_shot = true
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 0.892914, -2.15787 )
-texture = ExtResource( 2 )
-hframes = 8
-vframes = 3
-frame = 4
+frames = SubResource( 25 )
+animation = "Idle"
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -3.26949, 5.40482 )
-shape = SubResource( 1 )
+position = Vector2( -2, 5 )
+shape = SubResource( 44 )
 
 [node name="Spear" parent="." instance=ExtResource( 3 )]
 position = Vector2( 14.3444, 2.39567 )
@@ -125,14 +238,12 @@ scale = Vector2( 2, 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 2 )
-anims/Run = SubResource( 7 )
-anims/Walk = SubResource( 6 )
+anims/Run = SubResource( 42 )
+anims/Walk = SubResource( 43 )
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 4 )
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/MainLoop/playback = SubResource( 5 )
-parameters/MainLoop/conditions/is_idling = false
-parameters/MainLoop/conditions/is_running = false
-parameters/MainLoop/conditions/is_walking = false
+[node name="PlayerController" type="Node" parent="."]
+script = ExtResource( 10 )
+
+[connection signal="timeout" from="StateMachine/Jumping/FlapTimer" to="StateMachine/Jumping" method="_on_FlapTimer_timeout"]
+[connection signal="jump" from="PlayerController" to="." method="_on_PlayerController_jump"]
+[connection signal="move" from="PlayerController" to="." method="_on_PlayerController_move"]
