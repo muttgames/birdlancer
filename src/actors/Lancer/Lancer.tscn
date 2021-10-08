@@ -1,12 +1,14 @@
-[gd_scene load_steps=39 format=2]
+[gd_scene load_steps=48 format=2]
 
 [ext_resource path="res://src/actors/Lancer/Lancer.gd" type="Script" id=1]
 [ext_resource path="res://src/actors/Lancer/lancer_idle.png" type="Texture" id=2]
 [ext_resource path="res://src/objects/Spear/Spear.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/utility/state_machine/StateMachine.gd" type="Script" id=4]
+[ext_resource path="res://src/actors/Lancer/lancer_fly.png" type="Texture" id=5]
 [ext_resource path="res://src/actors/Lancer/lancer_run.png" type="Texture" id=6]
 [ext_resource path="res://src/actors/Lancer/lancer_walk.png" type="Texture" id=7]
 [ext_resource path="res://src/actors/Lancer/states/LancerGroundedState.gd" type="Script" id=8]
+[ext_resource path="res://src/actors/Lancer/Skid.gd" type="Script" id=9]
 [ext_resource path="res://src/utility/PlayerController.gd" type="Script" id=10]
 [ext_resource path="res://src/actors/Lancer/states/LancerCoasting.gd" type="Script" id=11]
 
@@ -106,6 +108,34 @@ region = Rect2( 64, 32, 32, 32 )
 atlas = ExtResource( 2 )
 region = Rect2( 96, 32, 32, 32 )
 
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 5 )
+region = Rect2( 32, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=47]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=48]
+atlas = ExtResource( 5 )
+region = Rect2( 96, 0, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=49]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=50]
+atlas = ExtResource( 5 )
+region = Rect2( 32, 32, 32, 32 )
+
+[sub_resource type="AtlasTexture" id=51]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 32, 32, 32 )
+
 [sub_resource type="SpriteFrames" id=25]
 animations = [ {
 "frames": [ SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ) ],
@@ -122,6 +152,11 @@ animations = [ {
 "loop": true,
 "name": "Idle",
 "speed": 15.0
+}, {
+"frames": [ SubResource( 45 ), SubResource( 46 ), SubResource( 47 ), SubResource( 48 ), SubResource( 49 ), SubResource( 50 ), SubResource( 51 ) ],
+"loop": false,
+"name": "Jump",
+"speed": 18.0
 } ]
 
 [sub_resource type="CapsuleShape2D" id=44]
@@ -141,14 +176,17 @@ resource_name = "Walk"
 length = 0.8
 
 [node name="Lancer" type="KinematicBody2D"]
+collision_layer = 2
 script = ExtResource( 1 )
-friction = 200.0
-max_jump_speed = 200.0
-gravity = 500.0
-flap_speed = 200.0
-jump_speed = 2000.0
+friction = 300.0
+max_h_speed = 200.0
+max_jump_speed = 150.0
+max_fall_speed = 150.0
+gravity = 200.0
+flap_speed = 110.0
+jump_speed = 100.0
 aerial_accel_speed = 250.0
-grounded_accel_speed = 700.0
+grounded_accel_speed = 500.0
 
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 4 )
@@ -176,11 +214,14 @@ max_speed = 1.0
 min_anim_speed = 1.5
 max_anim_speed = 3.0
 
-[node name="Jumping" type="Node" parent="StateMachine"]
+[node name="Skid" type="Node" parent="StateMachine"]
+script = ExtResource( 9 )
+
+[node name="Jump" type="Node" parent="StateMachine"]
 script = ExtResource( 11 )
 
-[node name="FlapTimer" type="Timer" parent="StateMachine/Jumping"]
-wait_time = 0.45
+[node name="FlapTimer" type="Timer" parent="StateMachine/Jump"]
+wait_time = 0.33
 one_shot = true
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -195,6 +236,7 @@ shape = SubResource( 44 )
 [node name="Spear" parent="." instance=ExtResource( 3 )]
 position = Vector2( 14.3444, 2.39567 )
 scale = Vector2( 2, 2 )
+collision_layer = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle = SubResource( 2 )
@@ -204,6 +246,16 @@ anims/Walk = SubResource( 43 )
 [node name="PlayerController" type="Node" parent="."]
 script = ExtResource( 10 )
 
-[connection signal="timeout" from="StateMachine/Jumping/FlapTimer" to="StateMachine/Jumping" method="_on_FlapTimer_timeout"]
+[node name="BounceTimer" type="Timer" parent="."]
+wait_time = 0.33
+one_shot = true
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="CameraTarget" type="Position2D" parent="."]
+position = Vector2( 52, 2 )
+
+[connection signal="timeout" from="StateMachine/Jump/FlapTimer" to="StateMachine/Jump" method="_on_FlapTimer_timeout"]
+[connection signal="body_entered" from="Spear" to="." method="_on_Spear_body_entered"]
 [connection signal="jump" from="PlayerController" to="." method="_on_PlayerController_jump"]
 [connection signal="move" from="PlayerController" to="." method="_on_PlayerController_move"]

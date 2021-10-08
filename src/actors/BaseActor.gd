@@ -29,13 +29,18 @@ func apply_forces(delta, apply_friction=true, up=Vector2.UP, infinite_inertia=tr
 #	var fraction = Engine.get_physics_interpolation_fraction()
 	prev_vel = vel
 	#	print(just_jumped)
-	if apply_friction:
-		apply_force(friction * -(vel.normalized()))
-		
 	apply_force(Vector2(0, gravity))
-	if vel.length() < friction * delta:
-		vel *= 0
 	
+	if apply_friction:
+		if abs(vel.x) < friction * delta:
+			vel.x = 0
+		else:
+			accel.x += friction * -(vel.normalized().x)
+		if abs(vel.y) < friction * delta:
+			vel.y = 0
+		else:
+			accel.y += friction * -(vel.normalized().y)
+		
 	prev_speed = speed
 	angular_vel += angular_impulses
 	vel += impulses

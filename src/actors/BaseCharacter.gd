@@ -6,5 +6,6 @@ onready var sprite = get_node_or_null("Sprite")
 var flip = false
 
 func update_flip():
-	flip = flip if accel.x == 0 else accel.x < 0
+	var dir = vel.normalized()
+	flip = flip if abs(dir.x) <= 0.5 else dir.x < 0
 	sprite.flip_h = flip
