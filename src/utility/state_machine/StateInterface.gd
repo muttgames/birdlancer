@@ -11,7 +11,7 @@ signal queue_state_change(state, self_)
 func queue_state_change(state: String) -> void:
 	var state_machine = get_parent()
 	# use this if you need to change state externally, or from a signal.
-	state_machine.queue_state(self, state_machine.states_map[state])
+	state_machine.queue_state(state, self)
 
 func _enter_tree() -> void:
 	var parent = get_parent()
