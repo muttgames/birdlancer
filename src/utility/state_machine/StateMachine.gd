@@ -9,8 +9,9 @@ var queued_state_change
 
 var initialized = false
 
-# only one of these will be used, prioritizing the animation player. filling in
-# both is useless.
+# if you are using both of these, make sure you don't update the 
+# AnimatedSprite's current animation with the AnimationPlayer - this will be 
+# done automatically if the state name matches the animation name.
 export(NodePath) var animation_player
 export(NodePath) var animated_sprite
 
@@ -92,11 +93,10 @@ func _change_state(state_name: String) -> void:
 	var animation_player = self.animation_player.get_ref()
 	if animation_player != null and animation_player.has_animation(state_name):
 		animation_player.play(state_name)
-	else:
-		var animated_sprite = self.animated_sprite.get_ref()
-		if animated_sprite != null and animated_sprite.frames.has_animation(state_name):
-			animated_sprite.frame = 0
-			animated_sprite.play(state_name)
+	var animated_sprite = self.animated_sprite.get_ref()
+	if animated_sprite != null and animated_sprite.frames.has_animation(state_name):
+		animated_sprite.frame = 0
+		animated_sprite.play(state_name)
 	
 	emit_signal("state_changed", states_stack)
 

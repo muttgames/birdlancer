@@ -131,56 +131,16 @@ height = 8.0
 [sub_resource type="Animation" id=2]
 resource_name = "Idle"
 length = 0.8
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Idle" ]
-}
 
 [sub_resource type="Animation" id=42]
 resource_name = "Run"
 length = 0.8
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Run" ]
-}
 
 [sub_resource type="Animation" id=43]
 resource_name = "Walk"
 length = 0.8
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("Sprite:animation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0 ),
-"transitions": PoolRealArray( 1 ),
-"update": 1,
-"values": [ "Walk" ]
-}
 
 [node name="Lancer" type="KinematicBody2D"]
-position = Vector2( 3.35876, -5.56847 )
 script = ExtResource( 1 )
 friction = 200.0
 max_jump_speed = 200.0
@@ -193,6 +153,7 @@ grounded_accel_speed = 700.0
 [node name="StateMachine" type="Node" parent="."]
 script = ExtResource( 4 )
 animation_player = NodePath("../AnimationPlayer")
+animated_sprite = NodePath("../Sprite")
 
 [node name="Idle" type="Node" parent="StateMachine"]
 script = ExtResource( 8 )
@@ -226,10 +187,9 @@ one_shot = true
 position = Vector2( 0.892914, -2.15787 )
 frames = SubResource( 25 )
 animation = "Idle"
-playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -2, 5 )
+position = Vector2( -1, 5 )
 shape = SubResource( 44 )
 
 [node name="Spear" parent="." instance=ExtResource( 3 )]
