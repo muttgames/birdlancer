@@ -25,8 +25,8 @@ onready var tween: Tween = $Tween
 func _ready() -> void:
 	# warning-ignore-all:return_value_discarded
 	spear.connect("body_entered", self, "_on_Spear_body_entered")
-	player_controller.connect("move", self, "_on_PlayerController_move")
-	player_controller.connect("jump", self, "_on_PlayerController_jump")
+	player_controller.connect("requested_move", self, "_on_PlayerController_requested_move")
+	player_controller.connect("requested_jump", self, "_on_PlayerController_requested_jump")
 	
 	state_machine.init()
 
@@ -56,11 +56,11 @@ func bounce():
 	bouncing = false
 
 
-func _on_PlayerController_jump():
+func _on_PlayerController_requested_jump():
 	state_machine.try("jump")
 
 
-func _on_PlayerController_move(movement):
+func _on_PlayerController_requested_move(movement):
 	if !bouncing:
 		if movement.x != 0:
 			camera_target.position.x = abs(camera_target.position.x) * movement.x
