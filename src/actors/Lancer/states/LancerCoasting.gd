@@ -1,21 +1,32 @@
 extends StateInterface
 
-onready var flap_timer = $FlapTimer
-var buffered_flap = false
-export var flap_buffer_time = 0.2
 
-func enter():
-	buffered_flap = false
-	pass
+export var flap_buffer_time: float = 0.2
 
-func update(delta):
+var _buffered_flap: bool = false
+
+onready var flap_timer: Timer = $FlapTimer
+
+
+func _ready() -> void:
+	# warning-ignore:return_value_discarded
+	flap_timer.connect("timeout", self, "_on_FlapTimer_timeout")
+
+
+func enter() -> void:
+	_buffered_flap = false
+
+
+func update(delta: float):
 	host.update_flip()
 	host.apply_forces(delta, false)
 	if host.is_on_floor():
 		return "Idle"
 
-func exit():
+
+func exit() -> void:
 	pass
+
 
 func flap():
 	if flap_timer.is_stopped():
@@ -26,17 +37,18 @@ func flap():
 		flap_timer.start()
 		queue_state_change("Jump")
 	elif flap_timer.time_left <= flap_buffer_time:
-		buffered_flap = true
+		_buffered_flap = true
 
-func move(movement: Vector2):
+
+func move(movement: Vector2) -> void:
 	host.apply_force(movement * host.aerial_accel_speed)
-	
-func jump():
-	flap()
-	pass
 
-func _on_FlapTimer_timeout():
-	if buffered_flap:
+
+func jump() -> void:
+	flap()
+
+
+func _on_FlapTimer_timeout() -> void:
+	if _buffered_flap:
 		flap()
-		buffered_flap = false
-	pass
+		_buffered_flap = false
