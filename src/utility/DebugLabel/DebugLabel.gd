@@ -1,8 +1,8 @@
+class_name DebugLabel
 extends Label
 
-class_name DebugLabel
 
-func _process(delta):
+func _process(_delta: float) -> void:
 	text = ""
 	for line in Debug.lines():
 		text = text + line + "\n"

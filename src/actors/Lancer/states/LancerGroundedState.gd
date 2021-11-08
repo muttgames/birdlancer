@@ -1,5 +1,6 @@
 extends StateInterface
 
+
 export(String) var next_state
 export(String) var prev_state
 export(float) var min_speed
@@ -7,10 +8,12 @@ export(float) var max_speed
 export(float) var min_anim_speed = 0.5
 export(float) var max_anim_speed = 0.75
 
-func enter():
+
+func enter() -> void:
 	pass
 
-func update(delta):
+
+func update(delta: float):
 	host.update_flip()
 	host.apply_forces(delta)
 	var speed = host.h_speed / host.max_h_speed
@@ -22,14 +25,15 @@ func update(delta):
 		return "Jump"
 	host.sprite.speed_scale = Utils.map(speed, min_speed, max_speed, min_anim_speed, max_anim_speed)
 
-func exit():
-	host.sprite.speed_scale = 1.0
-	pass
 
-func move(movement):
+func exit() -> void:
+	host.sprite.speed_scale = 1.0
+
+
+func move(movement: Vector2) -> void:
 	host.apply_force(movement * host.grounded_accel_speed)
 
-func jump():
+
+func jump() -> void:
 	queue_state_change("Jump")
 	host.apply_impulse(Vector2(0, -host.jump_speed))
-	pass

@@ -1,6 +1,7 @@
+class_name Controller
 extends Node
 
-class_name Controller
-
-signal move(movement)
-signal jump()
+# warning-ignore:unused_signal
+signal requested_move(movement)
+# warning-ignore:unused_signal
+signal requested_jump()

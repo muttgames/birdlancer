@@ -27,7 +27,7 @@ _global_script_classes=[ {
 "base": "Label",
 "class": "DebugLabel",
 "language": "GDScript",
-"path": "res://src/utility/DebugLabel.gd"
+"path": "res://src/utility/DebugLabel/DebugLabel.gd"
 }, {
 "base": "BaseCharacter",
 "class": "Lancer",
@@ -37,12 +37,12 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "StateInterface",
 "language": "GDScript",
-"path": "res://src/utility/state_machine/StateInterface.gd"
+"path": "res://src/utility/StateMachine/StateInterface.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
-"path": "res://src/utility/state_machine/StateMachine.gd"
+"path": "res://src/utility/StateMachine/StateMachine.gd"
 } ]
 _global_script_class_icons={
 "BaseActor": "",
@@ -62,9 +62,9 @@ config/icon="res://common/icon.png"
 
 [autoload]
 
-Debug="*res://src/utility/debug.gd"
-Rng="*res://src/utility/Rng.gd"
-Utils="*res://src/utility/utils.gd"
+Debug="*res://src/autoloads/debug.gd"
+Rng="*res://src/autoloads/rng.gd"
+Utils="*res://src/autoloads/utils.gd"
 
 [display]
 

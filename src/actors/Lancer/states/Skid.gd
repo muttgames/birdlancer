@@ -5,9 +5,9 @@ func enter() -> void:
 	pass
 
 
-func update(delta: float):
+func update(_delta: float):
 	pass
 
-	
+
 func exit() -> void:
 	pass
