@@ -1,0 +1,5 @@
+extends Node
+# NOTICE: EDITOR MUST BE RESTARTED TO RESET THE "CACHE" OF THE CONSTANTS FOR
+# "TOOL" NODES! (eg. for ProceduralJoints)
+
+const JOINT_SIZE: Vector2 = 16*Vector2.ONE

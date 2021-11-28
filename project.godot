@@ -62,6 +62,7 @@ config/icon="res://common/icon.png"
 
 [autoload]
 
+Globals="*res://src/autoloads/globals.gd"
 Debug="*res://src/autoloads/debug.gd"
 Rng="*res://src/autoloads/rng.gd"
 Utils="*res://src/autoloads/utils.gd"
