@@ -57,7 +57,7 @@ _global_script_class_icons={
 [application]
 
 config/name="BirdLancer"
-run/main_scene="res://src/levels/TestLevel/TestLevel.tscn"
+run/main_scene="res://src/levels/ProcGenLevelTest/ProcGenLevelTest.tscn"
 config/icon="res://common/icon.png"
 
 [autoload]
