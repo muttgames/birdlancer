@@ -5,11 +5,14 @@ extends Node2D
 enum POSITION_ENUM {NORTH, EAST, SOUTH, WEST}
 
 export(POSITION_ENUM) var joint_position: int = 0  # North
+export(bool) var is_jointed: bool = false
 
 
 func _ready() -> void:
 	$"Area2D/CollisionShape2D".shape.extents = Globals.JOINT_SIZE/2
 	$Sprite.scale = Globals.JOINT_SIZE
+	if joint_position in [1, 3]:  # West or East
+		self.rotation_degrees = 90.0
 	$Sprite.visible = false
 
 

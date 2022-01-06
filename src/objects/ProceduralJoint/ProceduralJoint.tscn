@@ -3,7 +3,7 @@
 [ext_resource path="res://src/objects/ProceduralJoint/ProceduralJoint.gd" type="Script" id=1]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 8, 8 )
+extents = Vector2( 16, 8 )
 
 [sub_resource type="Gradient" id=2]
 resource_local_to_scene = true
@@ -17,6 +17,7 @@ width = 1
 
 [node name="ProceduralJoint" type="Node2D"]
 script = ExtResource( 1 )
+is_connected = null
 
 [node name="Area2D" type="Area2D" parent="."]
 
@@ -25,5 +26,5 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
-scale = Vector2( 16, 16 )
+scale = Vector2( 32, 16 )
 texture = SubResource( 3 )
