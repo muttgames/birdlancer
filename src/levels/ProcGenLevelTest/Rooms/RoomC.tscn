@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/scenery/Kenney1BitTileSet/Kenney1BitTileSet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/objects/ProceduralJoint/ProceduralJoint.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/objects/ProceduralCollider/ProceduralCollider.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+resource_local_to_scene = true
+gradient = SubResource( 1 )
+width = 1
 
 [node name="RoomC" type="Node2D"]
 
@@ -29,3 +39,15 @@ joint_position = 3
 
 [node name="SpawnPosition" type="Position2D" parent="."]
 position = Vector2( 80, 104 )
+
+[node name="ProceduralCollider" parent="." instance=ExtResource( 3 )]
+position = Vector2( 160, 96 )
+scale = Vector2( 160, 96 )
+tilemap_nodepath = NodePath("../Kenney1BitTileset")
+
+[node name="Background" type="Sprite" parent="."]
+modulate = Color( 0, 0.3, 0.025, 1 )
+scale = Vector2( 320, 192 )
+z_index = -1
+texture = SubResource( 2 )
+centered = false

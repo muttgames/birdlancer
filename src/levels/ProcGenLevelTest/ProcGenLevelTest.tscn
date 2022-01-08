@@ -7,3 +7,7 @@
 script = ExtResource( 1 )
 rooms_folder_path = "res://src/levels/ProcGenLevelTest/Rooms"
 player_model = ExtResource( 2 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 10, 10 )

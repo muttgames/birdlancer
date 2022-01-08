@@ -1,5 +1,6 @@
 tool
 extends Node2D
+class_name ProceduralJoint
 
 
 enum POSITION_ENUM {NORTH, EAST, SOUTH, WEST}
@@ -8,17 +9,14 @@ export(POSITION_ENUM) var joint_position: int = 0  # North
 export(bool) var is_jointed: bool = false
 
 
-func _ready() -> void:
+func _process(_delta: float) -> void:
 	$"Area2D/CollisionShape2D".shape.extents = Globals.JOINT_SIZE/2
 	$Sprite.scale = Globals.JOINT_SIZE
 	if joint_position in [1, 3]:  # West or East
 		self.rotation_degrees = 90.0
-	$Sprite.visible = false
 
-
-func _process(_delta: float) -> void:
-	if OS.has_feature("editor"):
-		# https://godotengine.org/qa/97382/know-whether-the-node-is-running-in-the-editor-or-in-game
+	if Engine.is_editor_hint():
+		# https://docs.godotengine.org/it/stable/classes/class_engine.html
 		$Sprite.visible = true
 		var color: Color = Color.black
 		match joint_position:
@@ -31,3 +29,5 @@ func _process(_delta: float) -> void:
 			3: # west
 				color = Color.green
 		$Sprite.texture.gradient.colors[0] = color
+	else:
+		$Sprite.visible = false
