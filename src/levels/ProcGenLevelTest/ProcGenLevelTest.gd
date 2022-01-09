@@ -5,13 +5,15 @@ export(String) var rooms_folder_path: String = "res://src/levels/ProcGenLevelTes
 export(PackedScene) var player_model: PackedScene
 export(PackedScene) var specify_initial_room: PackedScene = null
 export(PackedScene) var specify_final_room: PackedScene = null
-export(int) var number_of_rooms: int = 20
+export(int) var number_of_rooms: int = 30
 
 
 var _rooms_list: Array = []
 var _rooms_folder: Directory
-var _initial_room: Node2D
-var _final_room: Node2D
+var _initial_room: PackedScene
+var _initial_room_instance: Node2D
+var _final_room: PackedScene
+var _final_room_instance: Node2D
 var _rooms_in_tree: Array = []
 
 
@@ -28,6 +30,7 @@ func _ready() -> void:
 
 
 func _load_rooms() -> void:
+	print_debug("[ProcGenLevelTest] _load_rooms()")
 	_rooms_folder = Directory.new()
 
 	#warning-ignore:return_value_discarded
@@ -52,26 +55,32 @@ func _load_rooms() -> void:
 
 
 func _set_initial_room() -> void:
+	print_debug("[ProcGenLevelTest] _set_initial_room()")
 	if specify_initial_room:
 		print("TODO")  # TODO
-		_initial_room = _rooms_list[randi() % _rooms_list.size()].instance()  # TODO
+		_initial_room = _rooms_list[randi() % _rooms_list.size()]  # TODO
 	else:
-		_initial_room = _rooms_list[randi() % _rooms_list.size()].instance()
-	self.add_child(_initial_room)
-	_rooms_in_tree.append(_initial_room)
+		_initial_room = _rooms_list[randi() % _rooms_list.size()]
+	
+	_initial_room_instance = _initial_room.instance()
+	self.add_child(_initial_room_instance)
+	_rooms_in_tree.append(_initial_room_instance)
 
 
 func _build_room_tree() -> void:
+	print_debug("[ProcGenLevelTest] _build_room_tree()")
+
 	var index: int = 0+1+1  # initial room and final room must be counted!
 	var blacklisted_source_rooms: Array = []
 
 	yield(get_tree(), "physics_frame")  # this is here to avoid "First argument of yield() not of type object."
 	while index <= number_of_rooms:
+		print_debug("[ProcGenLevelTest] _build_room_tree() : index=" + str(index))
 
 		# Select a random room in the room tree.
 		var selected_room = _rooms_in_tree[randi() % _rooms_in_tree.size()]
 
-		# If the source room is blacklisted, continue.
+		# If the source room (instance) is blacklisted, continue.
 		if selected_room in blacklisted_source_rooms:
 			continue
 
@@ -79,22 +88,26 @@ func _build_room_tree() -> void:
 		var inner_index = 0
 		var inner_limit = 5
 		var appending_error = 3
+		var appending_room_instance = null
 		var blacklisted_inner_rooms: Array = []
 
 		# Keep trying to fit a new room around the current non-blacklisted room
 		# Until we succeed or run out of attempts.
 		while not(inner_success) and inner_index < inner_limit:
+			print_debug("[ProcGenLevelTest] _build_room_tree() : inner_index=" + str(inner_index))
 
 			# Select a random room from the room list.
-			var appending_room = _rooms_list[randi() % _rooms_list.size()].instance()
+			var appending_room = _rooms_list[randi() % _rooms_list.size()]
 
-			# If appending room has been previously blacklisted, continue.
+			# If appending room (scene) has been previously blacklisted, continue.
 			if appending_room in blacklisted_inner_rooms:
 				inner_index += 1
 				continue
 			
 			# Try appending rooms.
-			appending_error = yield(_append_rooms(selected_room, appending_room), "completed")
+			var result = yield(_append_rooms(selected_room, appending_room), "completed")
+			appending_room_instance = result["room"]
+			appending_error = result["error"]
 			if appending_error == 1:  # no available joints, blacklist the selected room!
 				blacklisted_source_rooms.append(selected_room)
 				break
@@ -102,13 +115,18 @@ func _build_room_tree() -> void:
 				blacklisted_inner_rooms.append(appending_room)
 				inner_index += 1
 			elif appending_error == 0:  # success!
-				_rooms_in_tree.append(appending_room)
+				_rooms_in_tree.append(appending_room_instance)
 				inner_success = true
 				index += 1
 
 		
-func _append_rooms(source_room, target_room) -> int:
+func _append_rooms(source_room: Node2D, target_room_scene: PackedScene) -> Dictionary:
+	print_debug("[ProcGenLevelTest] _append_rooms()")
+
 	yield(get_tree(), "physics_frame")  # this is here to avoid "First argument of yield() not of type object."
+
+	# Instance target room
+	var target_room: Node2D = target_room_scene.instance()
 
 	# Returns
 	var no_available_joints_error = 1
@@ -124,7 +142,7 @@ func _append_rooms(source_room, target_room) -> int:
 
 	# If there are no available joints, return no_available_joints_error.
 	if len(available_joints) == 0:
-		return no_available_joints_error
+		return {"room": null, "error": no_available_joints_error}
 
 	# Select a random joint from the source room.
 	var source_joint = available_joints[randi() % available_joints.size()]
@@ -138,7 +156,7 @@ func _append_rooms(source_room, target_room) -> int:
 			if joint.joint_position == target_direction:
 				target_joint = joint
 	else:
-		return no_space_error
+		return {"room": null, "error": no_space_error}
 	
 	# Add new room and position it using the joint positions.
 	var source_joint_global_position : Vector2 = source_joint.global_position
@@ -168,35 +186,45 @@ func _append_rooms(source_room, target_room) -> int:
 		var room_collider: ProceduralCollider = room.get_node("ProceduralCollider")
 		if (target_collider in room_collider.get_overlapping_areas()) or (room_collider in target_collider.get_overlapping_areas()):
 			target_room.queue_free()
-			return no_space_error
+			return {"room": null, "error": no_space_error}
 	
 	# Everything's good!
 	source_joint.is_jointed = true
 	target_joint.is_jointed = true
-	return success  # success!
+	return {"room": target_room, "error": success}  # success!
 
 
 func _set_final_room() -> void:
+	print_debug("[ProcGenLevelTest] _set_final_room()")
+
 	yield(get_tree(), "physics_frame")  # this is here to avoid "First argument of yield() not of type object."
+	_final_room_instance = null
+
 	if specify_final_room:
 		print("TODO")  # TODO
-		_final_room = _rooms_list[randi() % _rooms_list.size()].instance()  # TODO
+		_final_room = _rooms_list[randi() % _rooms_list.size()]  # TODO
 		var success = false
 		while not(success):
-			var selected_room = _rooms_in_tree[randi() % _rooms_in_tree.size()]
-			var appending_error = yield(_append_rooms(selected_room, _final_room), "completed")
+			var selected_room: Node2D = _rooms_in_tree[randi() % _rooms_in_tree.size()]
+			var result = yield(_append_rooms(selected_room, _final_room), "completed")
+			var appending_error = result["error"]
+			_final_room_instance = result["room"]
 			success = (appending_error == 0)
 	else:
-		_final_room = _rooms_list[randi() % _rooms_list.size()].instance()
+		_final_room = _rooms_list[randi() % _rooms_list.size()]
 		var success = false
 		while not(success):
-			var selected_room = _rooms_in_tree[randi() % _rooms_in_tree.size()]
-			var appending_error = yield(_append_rooms(selected_room, _final_room), "completed")
+			var selected_room: Node2D = _rooms_in_tree[randi() % _rooms_in_tree.size()]
+			var result = yield(_append_rooms(selected_room, _final_room), "completed")
+			var appending_error = result["error"]
+			_final_room_instance = result["room"]
 			success = (appending_error == 0)
-	_rooms_in_tree.append(_final_room)
+	_rooms_in_tree.append(_final_room_instance)
 
 
 func _deactivate_all_areas() -> void:
+	print_debug("[ProcGenLevelTest] _deactivate_all_areas()")
+
 	yield(get_tree(), "physics_frame")  # wait a bit!
 	for room in _rooms_in_tree:
 		var room_collider: ProceduralCollider = room.get_node("ProceduralCollider")
@@ -211,6 +239,8 @@ func _deactivate_all_areas() -> void:
 
 
 func _spawn_player() -> void:
+	print_debug("[ProcGenLevelTest] _spawn_player()")
+
 	var player_instance: Node2D = player_model.instance()
 	self.add_child(player_instance)
-	player_instance.position = _initial_room.get_node("SpawnPosition").position
+	player_instance.position = _initial_room_instance.get_node("SpawnPosition").position
