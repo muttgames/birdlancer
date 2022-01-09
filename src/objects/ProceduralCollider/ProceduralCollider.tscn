@@ -3,6 +3,7 @@
 [ext_resource path="res://src/objects/ProceduralCollider/ProceduralCollider.gd" type="Script" id=1]
 
 [node name="ProcGenCollider" type="Area2D"]
+visible = false
 collision_layer = 512
 collision_mask = 512
 script = ExtResource( 1 )
