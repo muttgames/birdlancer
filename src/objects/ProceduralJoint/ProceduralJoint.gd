@@ -13,7 +13,7 @@ func _process(_delta: float) -> void:
 	$"Area2D/CollisionShape2D".shape.extents = Globals.JOINT_SIZE/2
 	$Sprite.scale = Globals.JOINT_SIZE
 	if joint_position in [1, 3]:  # West or East
-		self.rotation_degrees = 90.0
+		rotation_degrees = 90.0
 
 	if Engine.is_editor_hint():
 		# https://docs.godotengine.org/it/stable/classes/class_engine.html
@@ -24,10 +24,12 @@ func _process(_delta: float) -> void:
 				color = Color.blue
 			1: # east
 				color = Color.yellow
+				rotation_degrees = 90.0
 			2: # south
 				color = Color.red
 			3: # west
 				color = Color.green
+				rotation_degrees = 90.0
 		$Sprite.texture.gradient.colors[0] = color
 	else:
 		$Sprite.visible = false

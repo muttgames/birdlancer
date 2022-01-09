@@ -155,6 +155,9 @@ func _append_rooms(source_room: Node2D, target_room_scene: PackedScene) -> Dicti
 		for joint in target_room.get_node("Joints").get_children():
 			if joint.joint_position == target_direction:
 				target_joint = joint
+		if target_joint == null:
+			# no compatible joint has been found in this target room!
+			return {"room": null, "error": no_space_error}
 	else:
 		return {"room": null, "error": no_space_error}
 	
@@ -171,8 +174,12 @@ func _append_rooms(source_room: Node2D, target_room_scene: PackedScene) -> Dicti
 		3:   # West
 			offset.x = - Globals.JOINT_SIZE.y
 	self.add_child(target_room)
-	var target_joint_global_position : Vector2 = target_joint.global_position
-	target_room.global_position = source_joint_global_position - target_joint_global_position + offset
+	var target_joint_global_position : Vector2 = Vector2.ZERO
+	if is_instance_valid(target_room) and is_instance_valid(target_joint):	# (because of all the yields!)
+		target_joint_global_position = target_joint.global_position
+		target_room.global_position = source_joint_global_position - target_joint_global_position + offset
+	else:
+		return {"room": null, "error": no_space_error}
 
 	# Check for collisions with all the rooms of the tree
 	# TODO this should be changed, should check only "neighbours"... maybe it would be costly though

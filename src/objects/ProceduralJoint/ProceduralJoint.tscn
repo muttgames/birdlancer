@@ -25,5 +25,7 @@ shape = SubResource( 1 )
 disabled = true
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -16, -8 )
 scale = Vector2( 32, 16 )
 texture = SubResource( 3 )
+centered = false

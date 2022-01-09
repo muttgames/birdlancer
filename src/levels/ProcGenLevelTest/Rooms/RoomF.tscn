@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/scenery/Kenney1BitTileSet/Kenney1BitTileSet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/objects/ProceduralJoint/ProceduralJoint.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/objects/ProceduralCollider/ProceduralCollider.tscn" type="PackedScene" id=3]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0 )
+colors = PoolColorArray( 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+resource_local_to_scene = true
+gradient = SubResource( 1 )
+width = 1
+
+[node name="RoomE" type="Node2D"]
+
+[node name="Kenney1BitTileset" parent="." instance=ExtResource( 1 )]
+tile_data = PoolIntArray( 1, 3, 196608, 2, 3, 196609, 3, 3, 196609, 4, 3, 196609, 5, 3, 196609, 6, 3, 196609, 7, 3, 196609, 8, 3, 196609, 9, 3, 196609, 10, 3, 196609, 11, 3, 196609, 12, 3, 196609, 13, 3, 196609, 14, 3, 196609, 15, 3, 196609, 16, 3, 196610, 19, 3, 196608, 20, 3, 196609, 21, 3, 196609, 22, 3, 196609, 23, 3, 196609, 24, 3, 196610, 65536, 3, 196611, 65561, 3, 3, 131097, 3, 65539, 196633, 3, 65539, 262144, 3, 196608, 262145, 3, 196609, 262146, 3, 196609, 262147, 3, 196609, 262148, 3, 196609, 262149, 3, 196609, 262150, 3, 196609, 262151, 3, 196609, 262152, 3, 196609, 262153, 3, 196610, 262169, 3, 131075, 327690, 3, 3, 393226, 3, 131075, 458763, 3, 196608, 458764, 3, 196610, 458767, 3, 196608, 458768, 3, 196609, 458769, 3, 196609, 458770, 3, 196609, 458771, 3, 196610, 458777, 3, 3, 524308, 3, 3, 524313, 3, 65539, 589844, 3, 65539, 589849, 3, 65539, 655380, 3, 131075, 655385, 3, 131075, 720917, 3, 196611, 720920, 3, 196611 )
+
+[node name="Joints" type="Node2D" parent="."]
+
+[node name="ProceduralJoint2" parent="Joints" instance=ExtResource( 2 )]
+position = Vector2( 408, 96 )
+rotation = 1.5708
+joint_position = 1
+
+[node name="ProceduralJoint3" parent="Joints" instance=ExtResource( 2 )]
+position = Vector2( 368, 184 )
+joint_position = 2
+
+[node name="ProceduralJoint4" parent="Joints" instance=ExtResource( 2 )]
+position = Vector2( 224, 120 )
+joint_position = 2
+
+[node name="ProceduralJoint5" parent="Joints" instance=ExtResource( 2 )]
+position = Vector2( 288, 8 )
+
+[node name="ProceduralJoint6" parent="Joints" instance=ExtResource( 2 )]
+position = Vector2( 8, 48 )
+rotation = 1.5708
+joint_position = 3
+
+[node name="SpawnPosition" type="Position2D" parent="."]
+position = Vector2( 256, 64 )
+
+[node name="ProceduralCollider" parent="." instance=ExtResource( 3 )]
+position = Vector2( 208, 96 )
+scale = Vector2( 197.6, 91.2 )
+tilemap_nodepath = NodePath("../Kenney1BitTileset")
+coverage_coefficient = 0.95
+
+[node name="Background" type="Sprite" parent="."]
+modulate = Color( 0, 0.301961, 0.258824, 1 )
+scale = Vector2( 416, 80 )
+z_index = -1
+texture = SubResource( 2 )
+centered = false
+
+[node name="Background2" type="Sprite" parent="."]
+modulate = Color( 0, 0.301961, 0.258824, 1 )
+position = Vector2( 160, 80 )
+scale = Vector2( 256, 48 )
+z_index = -1
+texture = SubResource( 2 )
+centered = false
+
+[node name="Background3" type="Sprite" parent="."]
+modulate = Color( 0, 0.301961, 0.258824, 1 )
+position = Vector2( 320, 128 )
+scale = Vector2( 96, 64 )
+z_index = -1
+texture = SubResource( 2 )
+centered = false
