@@ -17,8 +17,11 @@ var _final_room_instance: Node2D
 var _rooms_in_tree: Array = []
 
 
-func _ready() -> void:
+func _init() -> void:
 	_load_rooms()
+
+
+func _ready() -> void:
 	_set_initial_room()
 	yield(_build_room_tree(), "completed")
 	yield(_set_final_room(), "completed")
@@ -63,6 +66,7 @@ func _set_initial_room() -> void:
 		_initial_room = _rooms_list[randi() % _rooms_list.size()]
 	
 	_initial_room_instance = _initial_room.instance()
+	yield(get_tree(), "physics_frame")
 	self.add_child(_initial_room_instance)
 	_rooms_in_tree.append(_initial_room_instance)
 
@@ -123,10 +127,9 @@ func _build_room_tree() -> void:
 func _append_rooms(source_room: Node2D, target_room_scene: PackedScene) -> Dictionary:
 	print_debug("[ProcGenLevelTest] _append_rooms()")
 
-	yield(get_tree(), "physics_frame")  # this is here to avoid "First argument of yield() not of type object."
-
 	# Instance target room
 	var target_room: Node2D = target_room_scene.instance()
+	yield(get_tree(), "physics_frame")  # this is here to avoid "First argument of yield() not of type object."
 
 	# Returns
 	var no_available_joints_error = 1
@@ -189,8 +192,10 @@ func _append_rooms(source_room: Node2D, target_room_scene: PackedScene) -> Dicti
 		target_collider	= target_room.get_node("ProceduralCollider")
 	else:
 		return no_space_error
+	yield(get_tree(), "physics_frame")
 	for room in _rooms_in_tree:
 		var room_collider: ProceduralCollider = room.get_node("ProceduralCollider")
+		yield(get_tree(), "physics_frame")
 		if (target_collider in room_collider.get_overlapping_areas()) or (room_collider in target_collider.get_overlapping_areas()):
 			target_room.queue_free()
 			return {"room": null, "error": no_space_error}

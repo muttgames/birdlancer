@@ -41,8 +41,6 @@ joint_position = 3
 position = Vector2( 104, 96 )
 
 [node name="ProceduralCollider" parent="." instance=ExtResource( 4 )]
-position = Vector2( 160, 96 )
-scale = Vector2( 160, 96 )
 tilemap_nodepath = NodePath("../Kenney1BitTileset")
 
 [node name="Background" type="Sprite" parent="."]
