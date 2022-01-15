@@ -1,8 +1,9 @@
 extends Node2D
+class_name ProceduralGenerator
 
 
-export(String) var rooms_folder_path: String = "res://src/levels/ProcGenLevelTest/Rooms/"
-export(PackedScene) var player_model: PackedScene
+export(String) var rooms_folder_path: String = ""
+export(PackedScene) var player_model: PackedScene = null
 export(PackedScene) var specify_initial_room: PackedScene = null
 export(PackedScene) var specify_final_room: PackedScene = null
 export(int) var number_of_rooms: int = 30
@@ -11,20 +12,18 @@ export(int) var number_of_rooms: int = 30
 var _rooms_list: Array = []
 var _rooms_folder: Directory
 var _initial_room: PackedScene
-var _initial_room_instance: Node2D
+var _initial_room_instance: ProceduralRoomController
 var _final_room: PackedScene
-var _final_room_instance: Node2D
+var _final_room_instance: ProceduralRoomController
 var _rooms_in_tree: Array = []
 
 
-func _init() -> void:
-	_load_rooms()
-
-
 func _ready() -> void:
+	_load_rooms()
 	_set_initial_room()
 	yield(_build_room_tree(), "completed")
 	yield(_set_final_room(), "completed")
+	_close_all_unused_joints()
 	_deactivate_all_areas()
 	_spawn_player()
 	
@@ -60,11 +59,9 @@ func _load_rooms() -> void:
 func _set_initial_room() -> void:
 	print_debug("[ProcGenLevelTest] _set_initial_room()")
 	if specify_initial_room:
-		print("TODO")  # TODO
-		_initial_room = _rooms_list[randi() % _rooms_list.size()]  # TODO
+		_initial_room = specify_initial_room
 	else:
 		_initial_room = _rooms_list[randi() % _rooms_list.size()]
-	
 	_initial_room_instance = _initial_room.instance()
 	yield(get_tree(), "physics_frame")
 	self.add_child(_initial_room_instance)
@@ -82,7 +79,7 @@ func _build_room_tree() -> void:
 		print_debug("[ProcGenLevelTest] _build_room_tree() : index=" + str(index))
 
 		# Select a random room in the room tree.
-		var selected_room = _rooms_in_tree[randi() % _rooms_in_tree.size()]
+		var selected_room: ProceduralRoomController = _rooms_in_tree[randi() % _rooms_in_tree.size()]
 
 		# If the source room (instance) is blacklisted, continue.
 		if selected_room in blacklisted_source_rooms:
@@ -92,7 +89,7 @@ func _build_room_tree() -> void:
 		var inner_index = 0
 		var inner_limit = 5
 		var appending_error = 3
-		var appending_room_instance = null
+		var appending_room_instance: ProceduralRoomController = null
 		var blacklisted_inner_rooms: Array = []
 
 		# Keep trying to fit a new room around the current non-blacklisted room
@@ -128,7 +125,7 @@ func _append_rooms(source_room: Node2D, target_room_scene: PackedScene) -> Dicti
 	print_debug("[ProcGenLevelTest] _append_rooms()")
 
 	# Instance target room
-	var target_room: Node2D = target_room_scene.instance()
+	var target_room: ProceduralRoomController = target_room_scene.instance()
 	yield(get_tree(), "physics_frame")  # this is here to avoid "First argument of yield() not of type object."
 
 	# Returns
@@ -211,27 +208,23 @@ func _set_final_room() -> void:
 
 	yield(get_tree(), "physics_frame")  # this is here to avoid "First argument of yield() not of type object."
 	_final_room_instance = null
-
 	if specify_final_room:
-		print("TODO")  # TODO
-		_final_room = _rooms_list[randi() % _rooms_list.size()]  # TODO
-		var success = false
-		while not(success):
-			var selected_room: Node2D = _rooms_in_tree[randi() % _rooms_in_tree.size()]
-			var result = yield(_append_rooms(selected_room, _final_room), "completed")
-			var appending_error = result["error"]
-			_final_room_instance = result["room"]
-			success = (appending_error == 0)
+		_final_room = specify_final_room
 	else:
 		_final_room = _rooms_list[randi() % _rooms_list.size()]
-		var success = false
-		while not(success):
-			var selected_room: Node2D = _rooms_in_tree[randi() % _rooms_in_tree.size()]
-			var result = yield(_append_rooms(selected_room, _final_room), "completed")
-			var appending_error = result["error"]
-			_final_room_instance = result["room"]
-			success = (appending_error == 0)
+	var success = false
+	while not(success):
+		var selected_room: Node2D = _rooms_in_tree[randi() % _rooms_in_tree.size()]
+		var result = yield(_append_rooms(selected_room, _final_room), "completed")
+		var appending_error = result["error"]
+		_final_room_instance = result["room"]
+		success = (appending_error == 0)
 	_rooms_in_tree.append(_final_room_instance)
+
+
+func _close_all_unused_joints() -> void:
+	for room in _rooms_in_tree:
+		room.close_unused_joints()
 
 
 func _deactivate_all_areas() -> void:

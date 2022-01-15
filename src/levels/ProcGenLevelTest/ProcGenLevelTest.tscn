@@ -1,12 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/levels/ProcGenLevelTest/ProcGenLevelTest.gd" type="Script" id=1]
+[ext_resource path="res://src/objects/ProceduralGenerator/ProceduralGenerator.gd" type="Script" id=1]
 [ext_resource path="res://src/actors/Lancer/Lancer.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/levels/ProcGenLevelTest/SpecialRooms/RoomInitialExample.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/levels/ProcGenLevelTest/SpecialRooms/RoomFinalExample.tscn" type="PackedScene" id=4]
 
 [node name="ProcGenLevelTest" type="Node2D"]
 script = ExtResource( 1 )
-rooms_folder_path = "res://src/levels/ProcGenLevelTest/Rooms"
+rooms_folder_path = "res://src/levels/ProcGenLevelTest/Rooms/"
 player_model = ExtResource( 2 )
+specify_initial_room = ExtResource( 3 )
+specify_final_room = ExtResource( 4 )
+number_of_rooms = 10
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
