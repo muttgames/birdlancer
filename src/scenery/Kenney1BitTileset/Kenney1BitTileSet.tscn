@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/scenery/Kenney1BitTileSet/Kenney1BitTileSet.tres" type="TileSet" id=1]
+
+[node name="Kenney1BitTileset" type="TileMap"]
+tile_set = ExtResource( 1 )
+cell_size = Vector2( 16, 16 )
+cell_custom_transform = Transform2D( 16, 0, 0, 16, 0, 0 )
+format = 1
+tile_data = PoolIntArray( -65536, 2, 0, -65535, 2, 0, -65534, 2, 0, -65533, 2, 0, 0, 2, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 65536, 2, 0, 65537, 2, 0, 65538, 2, 0, 65539, 2, 0, 131072, 2, 0, 131073, 2, 0, 131074, 2, 0, 131075, 2, 0, 196608, 2, 0, 196609, 2, 0, 196610, 2, 0, 196611, 2, 0 )
