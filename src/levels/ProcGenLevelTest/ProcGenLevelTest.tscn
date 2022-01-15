@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://src/objects/ProceduralGenerator/ProceduralGenerator.gd" type="Script" id=1]
+[ext_resource path="res://src/systems/ProceduralSystem/ProceduralGenerator/ProceduralGenerator.gd" type="Script" id=1]
 [ext_resource path="res://src/actors/Lancer/Lancer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/levels/ProcGenLevelTest/SpecialRooms/RoomInitialExample.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/levels/ProcGenLevelTest/SpecialRooms/RoomFinalExample.tscn" type="PackedScene" id=4]
