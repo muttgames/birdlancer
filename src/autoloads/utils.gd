@@ -88,7 +88,7 @@ func _play_sound_in_level(sound_node: AudioStreamPlayer) -> void:
 	if sound_node_duplicate is AudioStreamPlayer2D:
 		sound_node_duplicate.global_position = sound_node.global_position
 	get_current_level().add_child(sound_node_duplicate)
-	sound_node_duplicate.connect("finished", sound_node_duplicate, "queue_free")
+	sound_node_duplicate.connect("finished", queue_free)
 	sound_node_duplicate.play()
 
 

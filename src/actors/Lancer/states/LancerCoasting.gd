@@ -1,16 +1,16 @@
 extends StateInterface
 
 
-export var flap_buffer_time: float = 0.2
+@export var flap_buffer_time: float = 0.2
 
 var _buffered_flap: bool = false
 
-onready var flap_timer: Timer = $FlapTimer
+@onready var flap_timer: Timer = $FlapTimer
 
 
 func _ready() -> void:
 	# warning-ignore:return_value_discarded
-	flap_timer.connect("timeout", self, "_on_FlapTimer_timeout")
+	flap_timer.connect("timeout", _on_FlapTimer_timeout)
 
 
 func enter() -> void:

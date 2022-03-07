@@ -1,12 +1,10 @@
 extends StateInterface
 
 
-export(String) var next_state
-export(String) var prev_state
-export(float) var min_speed
-export(float) var max_speed
-export(float) var min_anim_speed = 0.5
-export(float) var max_anim_speed = 0.75
+@export var min_speed: float
+@export var max_speed: float
+@export var min_anim_speed = 0.5
+@export var max_anim_speed = 0.75
 
 
 func enter() -> void:
@@ -27,7 +25,7 @@ func update(delta: float):
 
 
 func exit() -> void:
-	host.sprite.speed_scale = 1.0
+	host.base_character_sprite_or_animated_sprite.speed_scale = 1.0
 
 
 func move(movement: Vector2) -> void:

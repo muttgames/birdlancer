@@ -17,5 +17,8 @@ export.cfg
 # Local History for Visual Studio Code
 .history/
 
+# In-project godot directory
+.godot/
+
 # Export folders
 */export

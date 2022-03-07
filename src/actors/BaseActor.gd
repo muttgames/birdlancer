@@ -1,15 +1,15 @@
 class_name BaseActor
-extends KinematicBody2D
+extends CharacterBody2D
 
 
-export(float) var friction: float = 100
-export(float) var angular_fric: float = 0.01
-export var max_turn_speed: float = 100.0
-export var max_h_speed: float = 500.0
-export var max_jump_speed: float = 500.0
-export var max_fall_speed: float = 500.0
-export var mass: float = 1.0
-export var gravity: float = 300.0
+@export var friction: float = 100
+@export var angular_fric: float = 0.01
+@export var max_turn_speed: float = 100.0
+@export var max_h_speed: float = 500.0
+@export var max_jump_speed: float = 500.0
+@export var max_fall_speed: float = 500.0
+@export var mass: float = 1.0
+@export var gravity: float = 300.0
 
 var vel: Vector2 = Vector2.ZERO
 var h_speed: float = 0.0
@@ -26,7 +26,7 @@ var _prev_speed: float = 0.0
 var _prev_accel: Vector2 = Vector2.ZERO
 
 
-func apply_forces(delta: float, apply_friction:bool = true, up: Vector2 = Vector2.UP, infinite_inertia: bool = true) -> void:
+func apply_forces(delta: float, apply_friction:bool = true, up: Vector2 = Vector2.UP, _infinite_inertia: bool = true) -> void:
 	#var fraction = Engine.get_physics_interpolation_fraction()
 	_prev_vel = vel
 	#print(just_jumped)
@@ -50,7 +50,14 @@ func apply_forces(delta: float, apply_friction:bool = true, up: Vector2 = Vector
 	vel.x = clamp(vel.x, -max_h_speed, max_h_speed)
 	vel.y = clamp(vel.y, -max_jump_speed, max_fall_speed)
 	#global_position = LevelManager.clamp_to_bounds(global_position)
-	vel = move_and_slide(vel, up, false, 4, 0.785398, infinite_inertia)
+	self.motion_velocity = vel
+	self.up_direction = up
+	self.max_slides = 4
+	self.floor_max_angle = 0.785398
+	# vel = move_and_slide(vel, up, false, 4, 0.785398, infinite_inertia)
+	move_and_slide()
+	vel = self.motion_velocity
+
 	_speed = vel.length()
 	h_speed = abs(vel.x)
 	v_speed = abs(vel.y)
@@ -68,7 +75,8 @@ func push(node: BaseActor) -> void:
 
 
 func move_directly(v: Vector2) -> void:
-	var _res = move_and_slide(v)
+	self.motion_velocity = v
+	var _res = move_and_slide()
 	_speed = vel.length()
 
 
@@ -92,8 +100,8 @@ func apply_force_angular(f: float) -> void:
 	_angular_accel += f / mass
 
 
-func accel_towards(global_position: Vector2, accel_speed: float) -> void:
-	apply_force((global_position - self.global_position).normalized() * accel_speed)
+func accel_towards(global_character_position: Vector2, accel_speed: float) -> void:
+	apply_force((global_character_position - self.global_position).normalized() * accel_speed)
 
 
 func _turn(delta: float) -> void:

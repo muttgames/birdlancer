@@ -7,11 +7,12 @@ signal state_changed(_states_stack)
 # if you are using both of these, make sure you don't update the 
 # AnimatedSprite's current animation with the AnimationPlayer - this will be 
 # done automatically if the state name matches the animation name.
-export (NodePath) var animation_player_nodepath: NodePath
-export (NodePath) var animated_sprite_nodepath: NodePath
+@export var animation_player_nodepath: NodePath
+@export var animated_sprite_nodepath: NodePath
+@export var initial_state: String = ""
 
 var state: StateInterface
-var ready: bool = false
+var state_ready: bool = false
 var initialized: bool = false
 
 var _animation_player: WeakRef
@@ -23,9 +24,11 @@ var host: Node
 
 
 func _ready() -> void:
-	ready = true
+	state_ready = true
 	_animated_sprite = weakref(get_node_or_null(animated_sprite_nodepath))
 	_animation_player = weakref(get_node_or_null(animation_player_nodepath))
+	if (initial_state != "") and (initial_state != null):
+		_change_state(initial_state)
 
 
 func _enter_tree() -> void:
@@ -33,13 +36,14 @@ func _enter_tree() -> void:
 
 
 func init(st: String = "") -> void:
-	if ! ready:
-		yield(self, "ready")
+	if ! state_ready:
+		await Signal(ready)
 	# Must be called with array of states before anything.
 	# The first state in the array is the starting state for the machine, unless specified with the 
 	# st param.
 	var states_array = get_children()
-	assert(states_array, "State machine for %s has no states!" % host.get_name())
+	# assert(states_array, "State machine for %s has no states!" % host.get_name())
+	assert(states_array, "This state machine has no states!")
 	for new_state in states_array:
 		if new_state is StateInterface:
 			_states_map[new_state.get_name()] = new_state
@@ -59,14 +63,16 @@ func queue_state(new_state_name: String, old_state: StateInterface) -> void:
 
 
 func update(delta: float) -> void:
-	assert(initialized, "State machine uninitialized for %s!" % host.get_name())
+	# https://github.com/godotengine/godot/issues/47157
+	# assert(initialized, "State machine uninitialized for %s!" % host.get_name())
+	assert(initialized, "State machine uninitialized for the given state!")
 	# call this in _physics_process
 	if _queued_state_change != "":
 		_change_state(_queued_state_change)
 		_queued_state_change = ""
 		return
-	var next_state_name = state.update(delta)
-	if next_state_name:
+	var next_state_name: Variant = state.update(delta)
+	if (next_state_name != "") and (next_state_name != null):
 		_change_state(next_state_name)
 
 
@@ -89,7 +95,7 @@ func _change_state(state_name: String) -> void:
 	# Sets current state value to input, exits & cleans up previous state, and enters new one.
 	var next_state
 
-	# Special case if keyword "previous" is passed. State machine returns to previous state.
+	# Special case if keyword "Previous" is passed. State machine returns to previous state.
 	if state_name == "Previous":
 		_states_stack.pop_front()
 		next_state = _states_stack[0]
