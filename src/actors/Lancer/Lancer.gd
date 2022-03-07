@@ -69,5 +69,5 @@ func _on_PlayerController_requested_move(movement):
 		moving = true
 
 
-func _on_Spear_body_entered(_body: PhysicsBody2D) -> void:
+func _on_Spear_body_entered(_body: Object) -> void:
 	bounce()

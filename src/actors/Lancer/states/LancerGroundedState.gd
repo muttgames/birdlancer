@@ -21,7 +21,7 @@ func update(delta: float):
 		return prev_state
 	if !host.is_on_floor():
 		return "Jump"
-	host.sprite.speed_scale = Utils.map(speed, min_speed, max_speed, min_anim_speed, max_anim_speed)
+	host.base_character_sprite_or_animated_sprite.speed_scale = Utils.map(speed, min_speed, max_speed, min_anim_speed, max_anim_speed)
 
 
 func exit() -> void:
