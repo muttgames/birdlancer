@@ -74,7 +74,7 @@ func play_sound_in_level(sound: AudioStream) -> void:
 
 
 func place_in_level(scene: PackedScene, global_position: Vector2) -> void:
-	var scene_instance = scene.instance()
+	var scene_instance = scene.instantiate()
 	get_current_level().call_deferred("add_child", scene_instance)
 	scene_instance.global_position = global_position
 

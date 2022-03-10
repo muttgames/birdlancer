@@ -50,13 +50,13 @@ func apply_forces(delta: float, apply_friction:bool = true, up: Vector2 = Vector
 	vel.x = clamp(vel.x, -max_h_speed, max_h_speed)
 	vel.y = clamp(vel.y, -max_jump_speed, max_fall_speed)
 	#global_position = LevelManager.clamp_to_bounds(global_position)
-	self.motion_velocity = vel
+	self.velocity = vel
 	self.up_direction = up
 	self.max_slides = 4
 	self.floor_max_angle = 0.785398
 	# vel = move_and_slide(vel, up, false, 4, 0.785398, infinite_inertia)
 	move_and_slide()
-	vel = self.motion_velocity
+	vel = self.velocity
 
 	_speed = vel.length()
 	h_speed = abs(vel.x)

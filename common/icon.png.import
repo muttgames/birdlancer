@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://drmrrd4uc4d65"
-path="res://.godot/imported/icon.png-7066b4e9375c66d6b73344b7d8d96345.stex"
+path="res://.godot/imported/icon.png-7066b4e9375c66d6b73344b7d8d96345.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://common/icon.png"
-dest_files=["res://.godot/imported/icon.png-7066b4e9375c66d6b73344b7d8d96345.stex"]
+dest_files=["res://.godot/imported/icon.png-7066b4e9375c66d6b73344b7d8d96345.ctex"]
 
 [params]
 

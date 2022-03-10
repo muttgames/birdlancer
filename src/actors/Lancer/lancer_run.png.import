@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://bko0r1brbqall"
-path="res://.godot/imported/lancer_run.png-3954a981f37bb87e0c77e0516d4ec8ad.stex"
+path="res://.godot/imported/lancer_run.png-3954a981f37bb87e0c77e0516d4ec8ad.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/actors/Lancer/lancer_run.png"
-dest_files=["res://.godot/imported/lancer_run.png-3954a981f37bb87e0c77e0516d4ec8ad.stex"]
+dest_files=["res://.godot/imported/lancer_run.png-3954a981f37bb87e0c77e0516d4ec8ad.ctex"]
 
 [params]
 

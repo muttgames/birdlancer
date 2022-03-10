@@ -1,9 +1,9 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://c7bq1xxhlabdx"
-path="res://.godot/imported/lancer_idle.png-5e90c05ea112c9b806f2a1f94dc4033b.stex"
+path="res://.godot/imported/lancer_idle.png-5e90c05ea112c9b806f2a1f94dc4033b.ctex"
 metadata={
 "vram_texture": false
 }
@@ -11,7 +11,7 @@ metadata={
 [deps]
 
 source_file="res://src/actors/Lancer/lancer_idle.png"
-dest_files=["res://.godot/imported/lancer_idle.png-5e90c05ea112c9b806f2a1f94dc4033b.stex"]
+dest_files=["res://.godot/imported/lancer_idle.png-5e90c05ea112c9b806f2a1f94dc4033b.ctex"]
 
 [params]
 

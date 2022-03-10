@@ -76,6 +76,34 @@ region = Rect2(64, 32, 32, 32)
 atlas = ExtResource( "6" )
 region = Rect2(96, 32, 32, 32)
 
+[sub_resource type="AtlasTexture" id="17"]
+atlas = ExtResource( "5" )
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="18"]
+atlas = ExtResource( "5" )
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="19"]
+atlas = ExtResource( "5" )
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="20"]
+atlas = ExtResource( "5" )
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="21"]
+atlas = ExtResource( "5" )
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="22"]
+atlas = ExtResource( "5" )
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="23"]
+atlas = ExtResource( "5" )
+region = Rect2(64, 32, 32, 32)
+
 [sub_resource type="AtlasTexture" id="24"]
 atlas = ExtResource( "7" )
 region = Rect2(0, 0, 32, 32)
@@ -108,34 +136,6 @@ region = Rect2(64, 32, 32, 32)
 atlas = ExtResource( "7" )
 region = Rect2(96, 32, 32, 32)
 
-[sub_resource type="AtlasTexture" id="17"]
-atlas = ExtResource( "5" )
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="18"]
-atlas = ExtResource( "5" )
-region = Rect2(32, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="19"]
-atlas = ExtResource( "5" )
-region = Rect2(64, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="20"]
-atlas = ExtResource( "5" )
-region = Rect2(96, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="21"]
-atlas = ExtResource( "5" )
-region = Rect2(0, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="22"]
-atlas = ExtResource( "5" )
-region = Rect2(32, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="23"]
-atlas = ExtResource( "5" )
-region = Rect2(64, 32, 32, 32)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_4i3e1"]
 animations = [{
 "frames": [SubResource( "9" ), SubResource( "10" ), SubResource( "11" ), SubResource( "12" ), SubResource( "13" ), SubResource( "14" ), SubResource( "15" ), SubResource( "16" )],
@@ -148,15 +148,15 @@ animations = [{
 "name": &"Run",
 "speed": 15.0
 }, {
-"frames": [SubResource( "24" ), SubResource( "25" ), SubResource( "26" ), SubResource( "27" ), SubResource( "28" ), SubResource( "29" ), SubResource( "30" ), SubResource( "31" )],
-"loop": true,
-"name": &"Walk",
-"speed": 15.0
-}, {
 "frames": [SubResource( "17" ), SubResource( "18" ), SubResource( "19" ), SubResource( "20" ), SubResource( "21" ), SubResource( "22" ), SubResource( "23" )],
 "loop": false,
 "name": &"Jump",
 "speed": 18.0
+}, {
+"frames": [SubResource( "24" ), SubResource( "25" ), SubResource( "26" ), SubResource( "27" ), SubResource( "28" ), SubResource( "29" ), SubResource( "30" ), SubResource( "31" )],
+"loop": true,
+"name": &"Walk",
+"speed": 15.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="33"]

@@ -1,17 +1,17 @@
 [remap]
 
 importer="texture"
-type="StreamTexture2D"
+type="CompressedTexture2D"
 uid="uid://bmlsbbl82vytl"
-path="res://.godot/imported/monochrome_tilemap_transparent.png-b574a8940c196e04b387239a47c8fe1f.stex"
+path="res://.godot/imported/monochrome_tilemap_transparent.png-63cd8e700d8486a3853d63814728be21.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/scenery/Kenney1BitTileset/monochrome_tilemap_transparent.png"
-dest_files=["res://.godot/imported/monochrome_tilemap_transparent.png-b574a8940c196e04b387239a47c8fe1f.stex"]
+source_file="res://src/scenery/Kenney1BitTileSet/monochrome_tilemap_transparent.png"
+dest_files=["res://.godot/imported/monochrome_tilemap_transparent.png-63cd8e700d8486a3853d63814728be21.ctex"]
 
 [params]
 

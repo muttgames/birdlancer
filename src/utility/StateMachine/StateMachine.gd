@@ -48,7 +48,7 @@ func init(st: String = "") -> void:
 		if new_state is StateInterface:
 			_states_map[new_state.get_name()] = new_state
 		else:
-			print("Invalid state %s for node %s" % [new_state.get_name(), host.get_name()])
+			Debug.dbg("Invalid State", "Invalid state %s for node %s" % [new_state.get_name(), host.get_name()])
 			new_state.queue_free()
 	if st != "":
 		_change_state(_states_map[st].get_name())

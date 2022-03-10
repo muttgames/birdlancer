@@ -2,11 +2,11 @@ extends Node2D
 class_name ProceduralGenerator
 
 
-export(String) var rooms_folder_path: String = ""
-export(PackedScene) var player_model: PackedScene = null
-export(PackedScene) var specify_initial_room: PackedScene = null
-export(PackedScene) var specify_final_room: PackedScene = null
-export(int) var number_of_rooms: int = 30
+@export var rooms_folder_path: String = ""
+@export var player_model: PackedScene = null
+@export var specify_initial_room: PackedScene = null
+@export var specify_final_room: PackedScene = null
+@export var number_of_rooms: int = 30
 
 
 var _rooms_list: Array = []
@@ -21,8 +21,8 @@ var _rooms_in_tree: Array = []
 func _ready() -> void:
 	_load_rooms()
 	_set_initial_room()
-	yield(_build_room_tree(), "completed")
-	yield(_set_final_room(), "completed")
+	await _build_room_tree()
+	await _set_final_room()
 	_close_all_unused_joints()
 	_deactivate_all_areas()
 	_spawn_player()
@@ -62,8 +62,8 @@ func _set_initial_room() -> void:
 		_initial_room = specify_initial_room
 	else:
 		_initial_room = _rooms_list[randi() % _rooms_list.size()]
-	_initial_room_instance = _initial_room.instance()
-	yield(get_tree(), "physics_frame")
+	_initial_room_instance = _initial_room.instantiate()
+	await Signal(get_tree().physics_frame)
 	self.add_child(_initial_room_instance)
 	_rooms_in_tree.append(_initial_room_instance)
 
@@ -74,7 +74,7 @@ func _build_room_tree() -> void:
 	var index: int = 0+1+1  # initial room and final room must be counted!
 	var blacklisted_source_rooms: Array = []
 
-	yield(get_tree(), "physics_frame")  # this is here to avoid "First argument of yield() not of type object."
+	await Signal(get_tree().physics_frame)  # this is here to avoid "First argument of yield() not of type object."
 	while index <= number_of_rooms:
 		print_debug("[ProcGenLevelTest] _build_room_tree() : index=" + str(index))
 
@@ -106,7 +106,7 @@ func _build_room_tree() -> void:
 				continue
 			
 			# Try appending rooms.
-			var result = yield(_append_rooms(selected_room, appending_room), "completed")
+			var result = await _append_rooms(selected_room, appending_room)
 			appending_room_instance = result["room"]
 			appending_error = result["error"]
 			if appending_error == 1:  # no available joints, blacklist the selected room!
@@ -121,12 +121,12 @@ func _build_room_tree() -> void:
 				index += 1
 
 		
-func _append_rooms(source_room: Node2D, target_room_scene: PackedScene) -> Dictionary:
+func _append_rooms(source_room: Node2D, target_room_scene: PackedScene) -> Variant:
 	print_debug("[ProcGenLevelTest] _append_rooms()")
 
 	# Instance target room
-	var target_room: ProceduralRoomController = target_room_scene.instance()
-	yield(get_tree(), "physics_frame")  # this is here to avoid "First argument of yield() not of type object."
+	var target_room: ProceduralRoomController = target_room_scene.instantiate()
+	await Signal(get_tree().physics_frame)  # this is here to avoid "First argument of yield() not of type object."
 
 	# Returns
 	var no_available_joints_error = 1
@@ -183,16 +183,16 @@ func _append_rooms(source_room: Node2D, target_room_scene: PackedScene) -> Dicti
 
 	# Check for collisions with all the rooms of the tree
 	# TODO this should be changed, should check only "neighbours"... maybe it would be costly though
-	yield(get_tree(), "physics_frame")
+	await Signal(get_tree().physics_frame)
 	var target_collider: ProceduralCollider = null
 	if is_instance_valid(target_room):	# (because of all the yields!)
 		target_collider	= target_room.get_node("ProceduralCollider")
 	else:
+		await Signal(get_tree().physics_frame)
 		return no_space_error
-	yield(get_tree(), "physics_frame")
 	for room in _rooms_in_tree:
 		var room_collider: ProceduralCollider = room.get_node("ProceduralCollider")
-		yield(get_tree(), "physics_frame")
+		await Signal(get_tree().physics_frame)
 		if (target_collider in room_collider.get_overlapping_areas()) or (room_collider in target_collider.get_overlapping_areas()):
 			target_room.queue_free()
 			return {"room": null, "error": no_space_error}
@@ -206,7 +206,7 @@ func _append_rooms(source_room: Node2D, target_room_scene: PackedScene) -> Dicti
 func _set_final_room() -> void:
 	print_debug("[ProcGenLevelTest] _set_final_room()")
 
-	yield(get_tree(), "physics_frame")  # this is here to avoid "First argument of yield() not of type object."
+	await Signal(get_tree().physics_frame)  # this is here to avoid "First argument of yield() not of type object."
 	_final_room_instance = null
 	if specify_final_room:
 		_final_room = specify_final_room
@@ -215,7 +215,7 @@ func _set_final_room() -> void:
 	var success = false
 	while not(success):
 		var selected_room: Node2D = _rooms_in_tree[randi() % _rooms_in_tree.size()]
-		var result = yield(_append_rooms(selected_room, _final_room), "completed")
+		var result = await _append_rooms(selected_room, _final_room)
 		var appending_error = result["error"]
 		_final_room_instance = result["room"]
 		success = (appending_error == 0)
@@ -230,7 +230,7 @@ func _close_all_unused_joints() -> void:
 func _deactivate_all_areas() -> void:
 	print_debug("[ProcGenLevelTest] _deactivate_all_areas()")
 
-	yield(get_tree(), "physics_frame")  # wait a bit!
+	await Signal(get_tree().physics_frame)  # wait a bit!
 	for room in _rooms_in_tree:
 		var room_collider: ProceduralCollider = room.get_node("ProceduralCollider")
 		if room_collider is ProceduralCollider:
@@ -246,6 +246,6 @@ func _deactivate_all_areas() -> void:
 func _spawn_player() -> void:
 	print_debug("[ProcGenLevelTest] _spawn_player()")
 
-	var player_instance: Node2D = player_model.instance()
+	var player_instance: Node2D = player_model.instantiate()
 	self.add_child(player_instance)
 	player_instance.position = _initial_room_instance.get_node("SpawnPosition").position

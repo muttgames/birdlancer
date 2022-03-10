@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" path="res://src/scenery/PrototypeTileset/PrototypeTileset.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://c82cgef70jvsq" path="res://src/actors/Lancer/Lancer.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://src/utility/DebugLabel/DebugLabel.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://c4ko36auauncj" path="res://src/utility/DebugLabel/DebugLabel.tscn" id="3"]
 
 [node name="TestLevel" type="Node2D"]
 

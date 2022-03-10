@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://8c43wrs7a2h4"]
+
+[ext_resource type="PackedScene" uid="uid://e2ji8gyshswe" path="res://src/scenery/Kenney1BitTileset/Kenney1BitTileSet.tscn" id="1"]
+[ext_resource type="Script" path="res://src/levels/ProcGenCloseJointsTest/ProcGenCloseJointsTest.gd" id="1_vmhrm"]
+[ext_resource type="PackedScene" path="res://src/systems/ProceduralSystem/ProceduralJoint/ProceduralJoint.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://vwr8clvlpplc" path="res://src/systems/ProceduralSystem/ProceduralCollider/ProceduralCollider.tscn" id="3"]
+[ext_resource type="Script" path="res://src/systems/ProceduralSystem/ProceduralRoomController/ProceduralRoomController.gd" id="4"]
+
+[sub_resource type="Gradient" id="5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="4"]
+resource_local_to_scene = true
+gradient = SubResource( "5" )
+width = 1
+
+[node name="ProcGenCloseJointsTest" type="Node2D"]
+script = ExtResource( "1_vmhrm" )
+
+[node name="RoomTest" type="Node2D" parent="."]
+script = ExtResource( "4" )
+wall_tilemap_nodepath = NodePath("Kenney1BitTileset")
+
+[node name="Kenney1BitTileset" parent="RoomTest" instance=ExtResource( "1" )]
+layer_0/tile_data = PackedInt32Array(65536, 1179654, 5, 131072, 1179654, 6, 196608, 1179654, 6, 262144, 1179654, 6, 327680, 1179654, 6, 393216, 1179654, 7, 589824, 1179654, 5, 655360, 1179654, 7, 1, 983046, 8, 720897, 983046, 8, 2, 1048582, 8, 720898, 1048582, 8, 3, 1048582, 8, 720899, 1114118, 8, 4, 1048582, 8, 5, 1048582, 8, 6, 1114118, 8, 720902, 983046, 8, 131079, 1048582, 6, 393223, 1048582, 6, 720903, 1048582, 8, 131080, 1048582, 6, 393224, 1048582, 6, 720904, 1048582, 8, 9, 983046, 8, 131081, 1048582, 6, 393225, 1048582, 6, 720905, 1048582, 8, 10, 1048582, 8, 720906, 1048582, 8, 11, 1048582, 8, 720907, 1048582, 8, 12, 1048582, 8, 720908, 1048582, 8, 13, 1048582, 8, 458765, 1048582, 6, 720909, 1048582, 8, 14, 1048582, 8, 720910, 1048582, 8, 15, 1048582, 8, 720911, 1048582, 8, 16, 1048582, 8, 720912, 1048582, 8, 17, 1048582, 8, 720913, 1048582, 8, 18, 1114118, 8, 720914, 1114118, 8, 65555, 1179654, 5, 131091, 1179654, 6, 196627, 1179654, 7, 393235, 1179654, 5, 458771, 1179654, 6, 524307, 1179654, 6, 589843, 1179654, 6, 655379, 1179654, 7)
+
+[node name="Joints" type="Node2D" parent="RoomTest"]
+
+[node name="ProceduralJoint" parent="RoomTest/Joints" instance=ExtResource( "2" )]
+position = Vector2(128, 8)
+
+[node name="ProceduralJoint2" parent="RoomTest/Joints" instance=ExtResource( "2" )]
+position = Vector2(312, 80)
+rotation = 1.5708
+joint_position = 1
+
+[node name="ProceduralJoint3" parent="RoomTest/Joints" instance=ExtResource( "2" )]
+position = Vector2(80, 184)
+joint_position = 2
+
+[node name="ProceduralJoint4" parent="RoomTest/Joints" instance=ExtResource( "2" )]
+position = Vector2(8, 128)
+rotation = 1.5708
+joint_position = 3
+
+[node name="SpawnPosition" type="Position2D" parent="RoomTest"]
+position = Vector2(192, 104)
+
+[node name="ProceduralCollider" parent="RoomTest" instance=ExtResource( "3" )]
+tilemap_nodepath = NodePath("../Kenney1BitTileset")
+
+[node name="Background" type="Sprite2D" parent="RoomTest"]
+modulate = Color(0.3, 0, 0, 1)
+scale = Vector2(320, 192)
+z_index = -1
+texture = SubResource( "4" )
+centered = false

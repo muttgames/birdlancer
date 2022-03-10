@@ -34,6 +34,26 @@ _global_script_classes=[{
 "language": &"GDScript",
 "path": "res://src/actors/Lancer/Lancer.gd"
 }, {
+"base": "Area2D",
+"class": &"ProceduralCollider",
+"language": &"GDScript",
+"path": "res://src/systems/ProceduralSystem/ProceduralCollider/ProceduralCollider.gd"
+}, {
+"base": "Node2D",
+"class": &"ProceduralGenerator",
+"language": &"GDScript",
+"path": "res://src/systems/ProceduralSystem/ProceduralGenerator/ProceduralGenerator.gd"
+}, {
+"base": "Node2D",
+"class": &"ProceduralJoint",
+"language": &"GDScript",
+"path": "res://src/systems/ProceduralSystem/ProceduralJoint/ProceduralJoint.gd"
+}, {
+"base": "Node2D",
+"class": &"ProceduralRoomController",
+"language": &"GDScript",
+"path": "res://src/systems/ProceduralSystem/ProceduralRoomController/ProceduralRoomController.gd"
+}, {
 "base": "Node",
 "class": &"StateInterface",
 "language": &"GDScript",
@@ -50,6 +70,10 @@ _global_script_class_icons={
 "Controller": "",
 "DebugLabel": "",
 "Lancer": "",
+"ProceduralCollider": "",
+"ProceduralGenerator": "",
+"ProceduralJoint": "",
+"ProceduralRoomController": "",
 "StateInterface": "",
 "StateMachine": ""
 }

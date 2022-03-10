@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://wn2u4fee5ibd"]
 
-[ext_resource type="PackedScene" path="res://src/levels/ProcGenLevelTest/ProcGenLevelTest.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://c2glml0tdteq" path="res://src/levels/ProcGenLevelTest/ProcGenLevelTest.tscn" id="1"]
 
 [node name="Main" type="Node"]
 
