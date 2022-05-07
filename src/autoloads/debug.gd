@@ -37,9 +37,9 @@ class DebugTime:
 
 
 func time_function(object: Object, method: String, args: Array) -> void:
-	var start = OS.get_ticks_usec()
+	var start = Time.get_ticks_usec()
 	object.callv(method, args)
-	var end = OS.get_ticks_usec()
+	var end = Time.get_ticks_usec()
 	if times.has(method):
 		times[method].append(DebugTime.new(method, end - start))
 	else:
@@ -64,7 +64,7 @@ func dbg_count(id, value, min_value: float = 1.0) -> void:
 
 
 func dbg_remove(id) -> void:
-	#warning-ignore:return_value_discarded
+	@warning_ignore(return_value_discarded)
 	items.erase(id)
 
 

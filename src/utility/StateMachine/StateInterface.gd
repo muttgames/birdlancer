@@ -6,6 +6,7 @@ extends Node
 @export var next_state: String = ""
 @export var prev_state: String = ""
 
+
 var host
 var active = false
 
@@ -31,14 +32,14 @@ func enter() -> void:
 	pass
 
 
-# warning-ignore:unused_argument
-func update(delta: float) -> void:
+@warning_ignore(unused_parameter)
+func update(delta: float) -> Variant:
 	# To use with _process(delta)
-	# Return a string, e.g. "Walking", to change states. Otherwise don't return (or return null).
-	pass
+	# Return a string, e.g. "Walking", to change states. Otherwise return null.
+	return null
 
-	
-# warning-ignore:unused_argument
+
+@warning_ignore(unused_parameter)
 func integrate(state: StateInterface) -> void:
 	# To use with _integrate_forces(state)
 	pass

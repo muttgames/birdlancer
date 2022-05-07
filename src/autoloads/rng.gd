@@ -56,7 +56,7 @@ func coin_flip() -> bool:
 func range_f(from: float, to: float) -> float:
 	return rng.randf_range(from, to)
 
-# warning-ignore:shadowed_global_identifier
+@warning_ignore(shadowed_global_identifier)
 func randfn(mean: float = 0.0, deviation: float = 1.0) -> float:
 	return rng.randfn(mean, deviation)
 

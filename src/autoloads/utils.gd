@@ -53,7 +53,7 @@ static func comma_sep(number: float) -> String:
 	return res
 
 static func wave(from: float, to: float, duration: float, offset: float) -> float:
-	var t = OS.get_ticks_msec() / 1000.0
+	var t = Time.get_ticks_msec() / 1000.0
 	var a = (to - from) * 0.5
 	return from + a + sin((((t) + duration * offset) / duration) * TAU) * a
 

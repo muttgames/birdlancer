@@ -11,7 +11,7 @@ func enter() -> void:
 	pass
 
 
-func update(delta: float):
+func update(delta: float) -> Variant:
 	host.update_flip()
 	host.apply_forces(delta)
 	var speed = host.h_speed / host.max_h_speed
@@ -22,7 +22,7 @@ func update(delta: float):
 	if !host.is_on_floor():
 		return "Jump"
 	host.base_character_sprite_or_animated_sprite.speed_scale = Utils.map(speed, min_speed, max_speed, min_anim_speed, max_anim_speed)
-
+	return null
 
 func exit() -> void:
 	host.base_character_sprite_or_animated_sprite.speed_scale = 1.0

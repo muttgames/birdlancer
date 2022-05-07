@@ -22,7 +22,7 @@ var bouncing: bool = false  # have we bounced off something
 
 
 func _ready() -> void:
-	# warning-ignore-all:return_value_discarded
+	@warning_ignore(return_value_discarded)
 	spear.connect("body_entered", _on_Spear_body_entered)
 	player_controller.connect("requested_move", _on_PlayerController_requested_move)
 	player_controller.connect("requested_jump", _on_PlayerController_requested_jump)
