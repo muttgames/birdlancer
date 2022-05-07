@@ -1,6 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://8c43wrs7a2h4"]
+[gd_scene load_steps=8 format=3 uid="uid://c7m3j4sf8ylc"]
 
-[ext_resource type="PackedScene" uid="uid://e2ji8gyshswe" path="res://src/scenery/Kenney1BitTileset/Kenney1BitTileSet.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://c6nr5jy2j5g08" path="res://src/scenery/Kenney1BitTileSet/Kenney1BitTileSet.tscn" id="1"]
 [ext_resource type="Script" path="res://src/levels/ProcGenCloseJointsTest/ProcGenCloseJointsTest.gd" id="1_vmhrm"]
 [ext_resource type="PackedScene" uid="uid://cj1kbv15tkng3" path="res://src/systems/ProceduralSystem/ProceduralJoint/ProceduralJoint.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://vwr8clvlpplc" path="res://src/systems/ProceduralSystem/ProceduralCollider/ProceduralCollider.tscn" id="3"]
@@ -33,13 +33,11 @@ layer_0/tile_data = PackedInt32Array(65536, 1179654, 5, 131072, 1179654, 6, 1966
 
 [node name="ProceduralJoint" parent="RoomTest/Joints" instance=ExtResource( "2" )]
 position = Vector2(128, 8)
-force_tilemap_closed_pattern_index = 0
 
 [node name="ProceduralJoint2" parent="RoomTest/Joints" instance=ExtResource( "2" )]
 position = Vector2(312, 80)
 rotation = 1.5708
 joint_position = 1
-force_tilemap_closed_pattern_index = 0
 
 [node name="ProceduralJoint3" parent="RoomTest/Joints" instance=ExtResource( "2" )]
 position = Vector2(80, 184)

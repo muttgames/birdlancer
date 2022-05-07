@@ -1,6 +1,6 @@
 [gd_resource type="TileSet" load_steps=15 format=3 uid="uid://e0sqc73jtee5"]
 
-[ext_resource type="Texture2D" uid="uid://dc61snhtcuond" path="res://src/scenery/Kenney1BitTileset/monochrome_tilemap_transparent_packed.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://dc61snhtcuond" path="res://src/scenery/Kenney1BitTileSet/monochrome_tilemap_transparent_packed.png" id="1_fmxhi"]
 
 [sub_resource type="TileMapPattern" id="TileMapPattern_2fyw6"]
 tile_data = PackedInt32Array(0, 1179654, 8)
@@ -39,7 +39,7 @@ polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 polygon = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6let5"]
-texture = ExtResource( "1" )
+texture = ExtResource( "1_fmxhi" )
 0:1/0 = 0
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0

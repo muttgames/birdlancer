@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://18wogtmnj0r1"]
 
-[ext_resource type="PackedScene" path="res://src/scenery/Kenney1BitTileSet/Kenney1BitTileSet.tscn" id="1"]
-[ext_resource type="PackedScene" path="res://src/systems/ProceduralSystem/ProceduralJoint/ProceduralJoint.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://c6nr5jy2j5g08" path="res://src/scenery/Kenney1BitTileSet/Kenney1BitTileSet.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cj1kbv15tkng3" path="res://src/systems/ProceduralSystem/ProceduralJoint/ProceduralJoint.tscn" id="2"]
 [ext_resource type="PackedScene" uid="uid://vwr8clvlpplc" path="res://src/systems/ProceduralSystem/ProceduralCollider/ProceduralCollider.tscn" id="3"]
 [ext_resource type="Script" path="res://src/systems/ProceduralSystem/ProceduralRoomController/ProceduralRoomController.gd" id="4"]
 

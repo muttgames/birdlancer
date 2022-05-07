@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://e2ji8gyshswe"]
+[gd_scene load_steps=2 format=3 uid="uid://c6nr5jy2j5g08"]
 
-[ext_resource type="TileSet" uid="uid://e0sqc73jtee5" path="res://src/scenery/Kenney1BitTileset/Kenney1BitTileSet.tres" id="1"]
+[ext_resource type="TileSet" uid="uid://e0sqc73jtee5" path="res://src/scenery/Kenney1BitTileSet/Kenney1BitTileSet.tres" id="1_vpryl"]
 
-[node name="Kenney1BitTileset" type="TileMap"]
+[node name="Kenney1BitTileSet" type="TileMap"]
 texture_filter = 1
-tile_set = ExtResource( "1" )
+tile_set = ExtResource( "1_vpryl" )
 format = 2
 layer_0/name = "MonoChrome Tilemap"
