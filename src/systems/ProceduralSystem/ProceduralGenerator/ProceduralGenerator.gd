@@ -35,10 +35,10 @@ func _load_rooms() -> void:
 	print_debug("[ProcGenLevelTest] _load_rooms()")
 	_rooms_folder = Directory.new()
 
-	#warning-ignore:return_value_discarded
+	@warning_ignore(return_value_discarded)
 	_rooms_folder.open(rooms_folder_path)
 
-	#warning-ignore:return_value_discarded
+	@warning_ignore(return_value_discarded)
 	_rooms_folder.list_dir_begin()
 
 	var file_list: Array = []

@@ -16,7 +16,7 @@ number_of_rooms = 10
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2(20, 20)
+zoom = Vector2(0.05, 0.05)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

@@ -3,10 +3,9 @@ extends Node2D
 class_name ProceduralJoint
 
 
-enum POSITION_ENUM {NORTH, EAST, SOUTH, WEST}
-
-@export var joint_position: int = 0  # North
+@export_enum(NORTH, EAST, SOUTH, WEST) var joint_position: int = 0  # North
 @export var is_jointed: bool = false
+@export var force_tilemap_closed_pattern_index: int
 
 
 func _ready() -> void:
