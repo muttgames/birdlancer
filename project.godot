@@ -6,64 +6,64 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
+config_version=5
 
-_global_script_classes=[ {
-"base": "KinematicBody2D",
-"class": "BaseActor",
-"language": "GDScript",
+_global_script_classes=[{
+"base": "CharacterBody2D",
+"class": &"BaseActor",
+"language": &"GDScript",
 "path": "res://src/actors/BaseActor.gd"
 }, {
 "base": "BaseActor",
-"class": "BaseCharacter",
-"language": "GDScript",
+"class": &"BaseCharacter",
+"language": &"GDScript",
 "path": "res://src/actors/BaseCharacter.gd"
 }, {
 "base": "Node",
-"class": "Controller",
-"language": "GDScript",
+"class": &"Controller",
+"language": &"GDScript",
 "path": "res://src/actors/Lancer/Controller.gd"
 }, {
 "base": "Label",
-"class": "DebugLabel",
-"language": "GDScript",
+"class": &"DebugLabel",
+"language": &"GDScript",
 "path": "res://src/utility/DebugLabel/DebugLabel.gd"
 }, {
 "base": "BaseCharacter",
-"class": "Lancer",
-"language": "GDScript",
+"class": &"Lancer",
+"language": &"GDScript",
 "path": "res://src/actors/Lancer/Lancer.gd"
 }, {
 "base": "Area2D",
-"class": "ProceduralCollider",
-"language": "GDScript",
+"class": &"ProceduralCollider",
+"language": &"GDScript",
 "path": "res://src/systems/ProceduralSystem/ProceduralCollider/ProceduralCollider.gd"
 }, {
 "base": "Node2D",
-"class": "ProceduralGenerator",
-"language": "GDScript",
+"class": &"ProceduralGenerator",
+"language": &"GDScript",
 "path": "res://src/systems/ProceduralSystem/ProceduralGenerator/ProceduralGenerator.gd"
 }, {
 "base": "Node2D",
-"class": "ProceduralJoint",
-"language": "GDScript",
+"class": &"ProceduralJoint",
+"language": &"GDScript",
 "path": "res://src/systems/ProceduralSystem/ProceduralJoint/ProceduralJoint.gd"
 }, {
 "base": "Node2D",
-"class": "ProceduralRoomController",
-"language": "GDScript",
+"class": &"ProceduralRoomController",
+"language": &"GDScript",
 "path": "res://src/systems/ProceduralSystem/ProceduralRoomController/ProceduralRoomController.gd"
 }, {
 "base": "Node",
-"class": "StateInterface",
-"language": "GDScript",
+"class": &"StateInterface",
+"language": &"GDScript",
 "path": "res://src/utility/StateMachine/StateInterface.gd"
 }, {
 "base": "Node",
-"class": "StateMachine",
-"language": "GDScript",
+"class": &"StateMachine",
+"language": &"GDScript",
 "path": "res://src/utility/StateMachine/StateMachine.gd"
-} ]
+}]
 _global_script_class_icons={
 "BaseActor": "",
 "BaseCharacter": "",
@@ -82,6 +82,7 @@ _global_script_class_icons={
 
 config/name="BirdLancer"
 run/main_scene="res://Main.tscn"
+config/features=PackedStringArray("4.0")
 config/icon="res://common/icon.png"
 
 [autoload]
@@ -93,12 +94,11 @@ Utils="*res://src/autoloads/utils.gd"
 
 [display]
 
+window/stretch/mode="viewport"
 window/size/width=320
 window/size/height=240
 window/size/test_width=960
 window/size/test_height=720
-window/stretch/mode="viewport"
-window/stretch/aspect="keep"
 window/options/use_nvidia_rect_flicker_workaround=false
 
 [editor]
@@ -133,21 +133,19 @@ texture={
 
 move_left={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":65,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"command_pressed":false,"pressed":false,"keycode":65,"physical_keycode":0,"unicode":0,"echo":false,"script":null)
+]
 }
 move_right={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":68,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"command_pressed":false,"pressed":false,"keycode":68,"physical_keycode":0,"unicode":0,"echo":false,"script":null)
+]
 }
 jump={
 "deadzone": 0.5,
-"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":32,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
-, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"physical_scancode":0,"unicode":0,"echo":false,"script":null)
- ]
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"command_pressed":false,"pressed":false,"keycode":32,"physical_keycode":0,"unicode":0,"echo":false,"script":null)
+, Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"store_command":true,"alt_pressed":false,"shift_pressed":false,"meta_pressed":false,"command_pressed":false,"pressed":false,"keycode":87,"physical_keycode":0,"unicode":0,"echo":false,"script":null)
+]
 }
 
 [layer_names]

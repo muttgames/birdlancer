@@ -1,10 +1,10 @@
-tool
+@tool
 extends Area2D
 class_name ProceduralCollider
 
 
-export(NodePath) var tilemap_nodepath: NodePath
-export(bool) var convex_hull_mode: bool = false
+@export var tilemap_nodepath: NodePath
+@export var convex_hull_mode: bool = false
 
 
 var _tilemap: TileMap
@@ -15,7 +15,7 @@ var _used_cells_position_array: Array
 var _center_of_used_cells_position_array: Vector2
 
 
-onready var _collision_polygon_2D: CollisionPolygon2D = $CollisionPolygon2D
+@onready var _collision_polygon_2D: CollisionPolygon2D = $CollisionPolygon2D
 
 
 func _ready() -> void:
@@ -33,8 +33,10 @@ func _build_collisions() -> void:
 		_tilemap = get_node(tilemap_nodepath)
 		if _tilemap:
 			_used_rect = _tilemap.get_used_rect()
-			_used_cells = _tilemap.get_used_cells()
-			_tilemap_cell_size = _tilemap.get_cell_size()
+			_used_cells = _tilemap.get_used_cells(0)
+			# _tilemap_cell_size = _tilemap.get_cell_size()
+			_tilemap_cell_size = Vector2(1, 1)*_tilemap.get_quadrant_size()
+
 			
 			self.position = _used_rect.position
 
@@ -43,13 +45,13 @@ func _build_collisions() -> void:
 				_used_cells_position_array.append(_get_tile_center_position(cell_vector, _tilemap_cell_size))
 			
 			_center_of_used_cells_position_array = _center_of_vector2_array(_used_cells_position_array)
-			_used_cells_position_array.sort_custom(self, "_sort_clockwise")
+			_used_cells_position_array.sort_custom(_sort_clockwise)
 
-			var pooled_array: PoolVector2Array = PoolVector2Array(_used_cells_position_array)
+			var packed_array: PackedVector2Array = PackedVector2Array(_used_cells_position_array)
 			if convex_hull_mode:
-				_collision_polygon_2D.set_polygon(Geometry.convex_hull_2d(pooled_array))
+				_collision_polygon_2D.set_polygon(Geometry2D.convex_hull(packed_array))
 			else:
-				_collision_polygon_2D.set_polygon(pooled_array)
+				_collision_polygon_2D.set_polygon(packed_array)
 
 
 func _get_tile_center_position(tile_pos: Vector2, cell_size: Vector2) -> Vector2:

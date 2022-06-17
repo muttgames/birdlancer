@@ -4,14 +4,14 @@ extends Node
 var enabled: bool = true
 var items: Dictionary = {}
 var times: Dictionary = {}
-var dbg_function: FuncRef
+var dbg_function: Callable
 
 
 func _enter_tree() -> void:
 	if enabled:
-		dbg_function = funcref(self, "dbg_enabled")
+		dbg_function = dbg_enabled
 	else:
-		dbg_function = funcref(self, "dbg_disabled")
+		dbg_function = dbg_disabled
 
 
 func _process(_delta: float) -> void:
@@ -27,7 +27,7 @@ func _process(_delta: float) -> void:
 		dbg_max(time_array + " max", total_time)
 
 
-class Time:
+class DebugTime:
 	var length: float
 	var name: String
 
@@ -37,13 +37,13 @@ class Time:
 
 
 func time_function(object: Object, method: String, args: Array) -> void:
-	var start = OS.get_ticks_usec()
+	var start = Time.get_ticks_usec()
 	object.callv(method, args)
-	var end = OS.get_ticks_usec()
+	var end = Time.get_ticks_usec()
 	if times.has(method):
-		times[method].append(Time.new(method, end - start))
+		times[method].append(DebugTime.new(method, end - start))
 	else:
-		times[method] = [Time.new(method, end - start)]
+		times[method] = [DebugTime.new(method, end - start)]
 
 
 func dbg_enabled(id, value) -> void:
@@ -55,7 +55,7 @@ func dbg_disabled(_id, _value) -> void:
 
 
 func dbg(id, value) -> void:
-	dbg_function.call_func(id, value)
+	dbg_function.call(id, value)
 
 
 func dbg_count(id, value, min_value: float = 1.0) -> void:
@@ -64,7 +64,7 @@ func dbg_count(id, value, min_value: float = 1.0) -> void:
 
 
 func dbg_remove(id) -> void:
-	#warning-ignore:return_value_discarded
+	@warning_ignore(return_value_discarded)
 	items.erase(id)
 
 
@@ -74,7 +74,7 @@ func dbg_max(id, value) -> void:
 
 
 func lines() -> Array:
-	var lines = []
+	var lines_array = []
 	for id in items:
-		lines.append(str(id) + ": " + str(items[id]))
-	return lines
+		lines_array.append(str(id) + ": " + str(items[id]))
+	return lines_array

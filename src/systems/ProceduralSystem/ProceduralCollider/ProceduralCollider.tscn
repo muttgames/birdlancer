@@ -1,12 +1,13 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://vwr8clvlpplc"]
 
-[ext_resource path="res://src/systems/ProceduralSystem/ProceduralCollider/ProceduralCollider.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://src/systems/ProceduralSystem/ProceduralCollider/ProceduralCollider.gd" id="1"]
 
 [node name="ProcGenCollider" type="Area2D"]
 visible = false
 collision_layer = 512
 collision_mask = 512
-script = ExtResource( 1 )
+script = ExtResource( "1" )
+tilemap_nodepath = NodePath("")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 0, 0, 1, 0, 1, 1, 0, 1 )
+polygon = PackedVector2Array(0, 0, 1, 0, 1, 1, 0, 1)

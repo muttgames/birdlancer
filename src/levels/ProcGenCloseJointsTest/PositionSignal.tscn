@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://dbbdprpi84pd2"]
+
+[node name="PositionSignal" type="Node2D"]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+z_index = 5
+offset = Vector2(-3, -3)
+antialiased = true
+polygon = PackedVector2Array(0, 0, 6, 0, 6, 6, 0, 6)

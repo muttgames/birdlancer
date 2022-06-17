@@ -1,7 +1,7 @@
 extends Node
 
 
-onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
+@onready var rng: RandomNumberGenerator = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
@@ -55,10 +55,6 @@ func coin_flip() -> bool:
 
 func range_f(from: float, to: float) -> float:
 	return rng.randf_range(from, to)
-
-
-func randfn(mean: float = 0.0, deviation: float = 1.0) -> float:
-	return rng.randfn(mean, deviation)
 
 
 func i() -> int:

@@ -2,8 +2,10 @@ class_name StateInterface
 extends Node
 # State interface for StateMachine
 
-#warning-ignore:unused_signal
-signal queue_state_change(state, self_)
+
+@export var next_state: String = ""
+@export var prev_state: String = ""
+
 
 var host
 var active = false
@@ -30,16 +32,18 @@ func enter() -> void:
 	pass
 
 
-# warning-ignore:unused_argument
-func update(delta: float):
+# @warning_ignore(unused_parameter)  # not working as of 17/06/2022
+func update(delta: float) -> Variant:
 	# To use with _process(delta)
-	# Return a string, e.g. "Walking", to change states. Otherwise don't return (or return null).
-	pass
+	# Return a string, e.g. "Walking", to change states. Otherwise return null.
+	if delta: pass  # hacky way to suppress the warning above
+	return null
 
-	
-# warning-ignore:unused_argument
+
+# @warning_ignore(unused_parameter)  # not working as of 17/06/2022
 func integrate(state: StateInterface) -> void:
 	# To use with _integrate_forces(state)
+	if state: pass  # hacky way to suppress the warning above
 	pass
 
 

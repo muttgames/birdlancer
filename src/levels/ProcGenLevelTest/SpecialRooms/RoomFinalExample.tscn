@@ -1,56 +1,60 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://18wogtmnj0r1"]
 
-[ext_resource path="res://src/scenery/Kenney1BitTileSet/Kenney1BitTileSet.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/systems/ProceduralSystem/ProceduralJoint/ProceduralJoint.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/systems/ProceduralSystem/ProceduralCollider/ProceduralCollider.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/systems/ProceduralSystem/ProceduralRoomController/ProceduralRoomController.gd" type="Script" id=4]
+[ext_resource type="PackedScene" uid="uid://c6nr5jy2j5g08" path="res://src/scenery/Kenney1BitTileSet/Kenney1BitTileSet.tscn" id="1"]
+[ext_resource type="PackedScene" uid="uid://cj1kbv15tkng3" path="res://src/systems/ProceduralSystem/ProceduralJoint/ProceduralJoint.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://vwr8clvlpplc" path="res://src/systems/ProceduralSystem/ProceduralCollider/ProceduralCollider.tscn" id="3"]
+[ext_resource type="Script" path="res://src/systems/ProceduralSystem/ProceduralRoomController/ProceduralRoomController.gd" id="4"]
 
-[sub_resource type="Gradient" id=5]
-offsets = PoolRealArray( 0 )
-colors = PoolColorArray( 1, 1, 1, 1 )
+[sub_resource type="Gradient" id="5"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 1, 1, 1)
 
-[sub_resource type="GradientTexture" id=4]
+[sub_resource type="GradientTexture1D" id="4"]
 resource_local_to_scene = true
-gradient = SubResource( 5 )
+gradient = SubResource( "5" )
 width = 1
 
 [node name="RoomFinalExample" type="Node2D"]
-script = ExtResource( 4 )
+script = ExtResource( "4" )
 wall_tilemap_nodepath = NodePath("Kenney1BitTileset")
+tilemap_source_id = 6
+tilemap_layer_number = 0
+tilemap_horizontal_closed_pattern_index = 2
+tilemap_vertical_closed_pattern_index = 1
 
-[node name="Kenney1BitTileset" parent="." instance=ExtResource( 1 )]
-tile_data = PoolIntArray( 1, 3, 196608, 2, 3, 196609, 3, 3, 196609, 4, 3, 196609, 5, 3, 196609, 6, 3, 196609, 7, 3, 196609, 8, 3, 196609, 9, 3, 196609, 10, 3, 196610, 13, 3, 196608, 14, 3, 196609, 15, 3, 196609, 16, 3, 196609, 17, 3, 196609, 18, 3, 196609, 19, 3, 196609, 20, 3, 196609, 21, 3, 196609, 22, 3, 196610, 65536, 3, 3, 65559, 3, 3, 131072, 3, 65539, 131075, 3, 3, 131092, 3, 3, 131095, 3, 65539, 196608, 3, 65539, 196611, 3, 131075, 196628, 3, 131075, 196631, 3, 65539, 262144, 3, 131075, 262167, 3, 131075, 327681, 3, 196608, 327682, 3, 196609, 327683, 3, 196609, 327684, 3, 196609, 327685, 3, 196610, 327698, 3, 196608, 327699, 3, 196609, 327700, 3, 196609, 327701, 3, 196609, 327702, 3, 196610, 393222, 3, 3, 393233, 3, 3, 458758, 3, 65539, 458769, 3, 65539, 524294, 3, 131075, 524305, 3, 131075, 589831, 3, 3, 589840, 3, 3, 655367, 3, 131075, 655376, 3, 131075, 720904, 3, 196608, 720905, 3, 196609, 720906, 3, 196609, 720907, 3, 196609, 720908, 3, 196609, 720909, 3, 196609, 720910, 3, 196609, 720911, 3, 196610 )
+[node name="Kenney1BitTileset" parent="." instance=ExtResource( "1" )]
+layer_0/tile_data = PackedInt32Array(65536, 1179654, 5, 131072, 1179654, 6, 196608, 1179654, 6, 262144, 1179654, 7, 1, 983046, 8, 327681, 983046, 8, 2, 1048582, 8, 327682, 1048582, 8, 3, 1048582, 8, 131075, 1179654, 5, 196611, 1179654, 7, 327683, 1048582, 8, 4, 1048582, 8, 327684, 1048582, 8, 5, 1048582, 8, 327685, 1114118, 8, 6, 1048582, 8, 393222, 1179654, 5, 458758, 1179654, 6, 524294, 1179654, 7, 7, 1048582, 8, 589831, 1179654, 5, 655367, 1179654, 7, 8, 1048582, 8, 720904, 983046, 8, 9, 1048582, 8, 720905, 1048582, 8, 10, 1114118, 8, 720906, 1048582, 8, 720907, 1048582, 8, 720908, 1048582, 8, 13, 983046, 8, 720909, 1048582, 8, 14, 1048582, 8, 720910, 1048582, 8, 15, 1048582, 8, 720911, 1114118, 8, 16, 1048582, 8, 589840, 1179654, 5, 655376, 1179654, 7, 17, 1048582, 8, 393233, 1179654, 5, 458769, 1179654, 6, 524305, 1179654, 7, 18, 1048582, 8, 327698, 983046, 8, 19, 1048582, 8, 327699, 1048582, 8, 20, 1048582, 8, 131092, 1179654, 5, 196628, 1179654, 7, 327700, 1048582, 8, 21, 1048582, 8, 327701, 1048582, 8, 22, 1114118, 8, 327702, 1114118, 8, 65559, 1179654, 5, 131095, 1179654, 6, 196631, 1179654, 6, 262167, 1179654, 7)
 
 [node name="Joints" type="Node2D" parent="."]
 
-[node name="ProceduralJoint" parent="Joints" instance=ExtResource( 2 )]
-position = Vector2( 192, 8 )
+[node name="ProceduralJoint" parent="Joints" instance=ExtResource( "2" )]
+position = Vector2(192, 8)
 
 [node name="SpawnPosition" type="Position2D" parent="."]
-position = Vector2( 192, 88.023 )
+position = Vector2(192, 88.023)
 
-[node name="ProceduralCollider" parent="." instance=ExtResource( 3 )]
+[node name="ProceduralCollider" parent="." instance=ExtResource( "3" )]
 tilemap_nodepath = NodePath("../Kenney1BitTileset")
 
-[node name="Background" type="Sprite" parent="."]
-modulate = Color( 0.501961, 0, 0, 1 )
-scale = Vector2( 384, 96 )
+[node name="Background" type="Sprite2D" parent="."]
+modulate = Color(0.501961, 0, 0, 1)
+scale = Vector2(384, 96)
 z_index = -1
-texture = SubResource( 4 )
+texture = SubResource( "4" )
 centered = false
 
-[node name="Background2" type="Sprite" parent="."]
-modulate = Color( 0.501961, 0, 0, 1 )
-position = Vector2( 96, 96 )
-scale = Vector2( 192, 48 )
+[node name="Background2" type="Sprite2D" parent="."]
+modulate = Color(0.501961, 0, 0, 1)
+position = Vector2(96, 96)
+scale = Vector2(192, 48)
 z_index = -1
-texture = SubResource( 4 )
+texture = SubResource( "4" )
 centered = false
 
-[node name="Background3" type="Sprite" parent="."]
-modulate = Color( 0.501961, 0, 0, 1 )
-position = Vector2( 112, 144 )
-scale = Vector2( 160, 48 )
+[node name="Background3" type="Sprite2D" parent="."]
+modulate = Color(0.501961, 0, 0, 1)
+position = Vector2(112, 144)
+scale = Vector2(160, 48)
 z_index = -1
-texture = SubResource( 4 )
+texture = SubResource( "4" )
 centered = false

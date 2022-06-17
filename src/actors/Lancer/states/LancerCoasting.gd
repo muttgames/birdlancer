@@ -1,27 +1,28 @@
 extends StateInterface
 
 
-export var flap_buffer_time: float = 0.2
+@export var flap_buffer_time: float = 0.2
 
 var _buffered_flap: bool = false
 
-onready var flap_timer: Timer = $FlapTimer
+@onready var flap_timer: Timer = $FlapTimer
 
 
 func _ready() -> void:
-	# warning-ignore:return_value_discarded
-	flap_timer.connect("timeout", self, "_on_FlapTimer_timeout")
+	@warning_ignore(return_value_discarded)
+	flap_timer.connect("timeout", _on_FlapTimer_timeout)
 
 
 func enter() -> void:
 	_buffered_flap = false
 
 
-func update(delta: float):
+func update(delta: float) -> Variant:
 	host.update_flip()
 	host.apply_forces(delta, false)
 	if host.is_on_floor():
 		return "Idle"
+	return null
 
 
 func exit() -> void:
