@@ -82,8 +82,8 @@ _global_script_class_icons={
 
 config/name="BirdLancer"
 run/main_scene="res://Main.tscn"
-config/icon="res://common/icon.png"
 config/features=PackedStringArray("4.0")
+config/icon="res://common/icon.png"
 
 [autoload]
 

@@ -40,6 +40,7 @@ func close_unused_joints() -> Array:
 				else:
 					horizontal_closed_pattern = wall_tilemap.get_tileset().get_pattern(tilemap_horizontal_closed_pattern_index)
 				assert(horizontal_closed_pattern.get_size().x%2==0, "The horizontal pattern must have an even number to work correctly!")
+				@warning_ignore(integer_division)
 				var pattern_offset: Vector2i = cell_coord+Vector2i(-int(horizontal_closed_pattern.get_size().x/4), 0)
 				wall_tilemap.set_pattern(tilemap_layer_number, pattern_offset, horizontal_closed_pattern)
 
@@ -61,6 +62,7 @@ func close_unused_joints() -> Array:
 				else:
 					vertical_closed_pattern = wall_tilemap.get_tileset().get_pattern(tilemap_vertical_closed_pattern_index)
 				assert(vertical_closed_pattern.get_size().y%2==0, "The vertical pattern must have an even number of cells to work correctly!")
+				@warning_ignore(integer_division)
 				var pattern_offset: Vector2i = cell_coord+Vector2i(0, -int(vertical_closed_pattern.get_size().y/4))
 				wall_tilemap.set_pattern(tilemap_layer_number, pattern_offset, vertical_closed_pattern)
 
@@ -71,7 +73,7 @@ func close_unused_joints() -> Array:
 				# wall_tilemap.set_cell(tilemap_layer_number, Vector2i(joint_tilemap_coordinates.x, joint_tilemap_coordinates.y), tilemap_source_id, prev_cell_atlas_coord)
 				# wall_tilemap.set_cell(tilemap_layer_number, Vector2i(joint_tilemap_coordinates.x, joint_tilemap_coordinates.y+1), tilemap_source_id, prev_cell_atlas_coord)
 				
-			wall_tilemap.force_update(tilemap_layer_number)
+			# wall_tilemap.force_update(tilemap_layer_number)
 
 	return unused_joints_coordinates_array
 

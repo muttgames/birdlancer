@@ -35,6 +35,7 @@ joint_position = 1
 [node name="ProceduralJoint3" parent="Joints" instance=ExtResource( "2" )]
 position = Vector2(368, 184)
 joint_position = 2
+force_tilemap_closed_pattern_index = 8
 
 [node name="ProceduralJoint4" parent="Joints" instance=ExtResource( "2" )]
 position = Vector2(224, 120)
@@ -47,9 +48,11 @@ position = Vector2(288, 8)
 position = Vector2(8, 48)
 rotation = 1.5708
 joint_position = 3
+force_tilemap_closed_pattern_index = 7
 
 [node name="ProceduralJoint" parent="Joints" instance=ExtResource( "2" )]
 position = Vector2(496, -56)
+force_tilemap_closed_pattern_index = 9
 
 [node name="SpawnPosition" type="Position2D" parent="."]
 position = Vector2(256, 64)

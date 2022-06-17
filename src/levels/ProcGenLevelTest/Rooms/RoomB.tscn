@@ -34,6 +34,7 @@ position = Vector2(240, 8)
 position = Vector2(312, 144)
 rotation = 1.5708
 joint_position = 1
+force_tilemap_closed_pattern_index = 5
 
 [node name="ProceduralJoint3" parent="Joints" instance=ExtResource( "2" )]
 position = Vector2(176, 184)
@@ -48,6 +49,7 @@ joint_position = 3
 position = Vector2(104, 96)
 
 [node name="ProceduralCollider" parent="." instance=ExtResource( "4" )]
+visible = true
 tilemap_nodepath = NodePath("../Kenney1BitTileset")
 
 [node name="Background" type="Sprite2D" parent="."]

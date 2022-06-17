@@ -43,6 +43,7 @@ joint_position = 2
 position = Vector2(8, 48)
 rotation = 1.5708
 joint_position = 3
+force_tilemap_closed_pattern_index = 6
 
 [node name="SpawnPosition" type="Position2D" parent="."]
 position = Vector2(80, 104)
